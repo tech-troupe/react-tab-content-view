@@ -1,32 +1,6 @@
 import {UserActionTypes} from './UserActionTypes';
 
-const INITIAL_STATE  = {
-    allTitles: ["title1", "title2", "title3","title4"],
-    displayedTitles:["title1", "title2", "title3","title4"],
-    data:[
-        {
-            "title":"title1",
-            "content":"content1"
-        },
-        {
-            "title":"title2",
-            "content":"content2"
-        },
-        {
-            "title":"title3",
-            "content":"content3"
-        },
-        {
-            "title":"title4",
-            "content":"content4"
-        },
-    ],
-    allTabs:['title1', 'title2'],
-    activeTitle:'title2',
-    closedTitle:null
-}
-
-const userActionReducer = (state=INITIAL_STATE, action) => {
+const userActionReducer = (state=[], action) => {
     switch (action.type) {
         case UserActionTypes.REMOVE_TITLE:
             let titleToDelete = state.titleToDelete;
