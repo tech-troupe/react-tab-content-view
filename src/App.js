@@ -34,6 +34,17 @@ const initialState  = {
 
 const middlewares = [logger];
 const store = createStore(userActionReducer, initialState, applyMiddleware(...middlewares));
+prepareData(initialState);
+const store = createStore(userActionReducer, initialState, applyMiddleware(...middlewares));
+
+function prepareData() {
+  let titleId = 1;
+  initialState.data.map((group, i) => {
+    initialState.data[i] = {...group, titleId}
+    titleId++;
+  });
+  console.log(initialState);
+}
 
 class App extends React.Component {
     render() {
