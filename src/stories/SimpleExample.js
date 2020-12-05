@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 
-import TabContent from '../../src/components';
+import TabContent from '../../src/components/TabContent';
 
-export default class App extends Component {
+export default class SimpleExample extends Component {
     constructor(props) {
         super(props);
 

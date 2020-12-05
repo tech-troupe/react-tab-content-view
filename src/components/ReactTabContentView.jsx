@@ -1,22 +1,39 @@
 import React from 'react';
+import {TabContent} from'./TabContent';
 
 
-export default class ReactTabContentView extends React.Component {
+class ReactTabContentView extends React.Component {
   constructor() {
     super();
     this.state = {
       data: [
         {
-          groupName: "group1",
-          title1: "content1",
-          title2: "content2",
+          groupTitle: "group1",
+          groupContent : [
+            {
+              titile: "title1",
+              content:"content1"
+            },
+            {
+              titile: "title2",
+              content:"content2"
+            }
+          ]
         },
         {
-          groupName: "group2",
-          title3: "content3",
-          title4: "content4",
-        },
-      ],
+          groupTitle: "group2",
+          groupContent : [
+            {
+              titile: "title3",
+              content:"content3"
+            },
+            {
+              titile: "title4",
+              content:"content4"
+            }
+          ]
+        }
+      ]
     };
   }
 
@@ -49,3 +66,5 @@ export default class ReactTabContentView extends React.Component {
     );
   }
 }
+
+export default ReactTabContentView;

@@ -1,9 +1,9 @@
 import {createStore, applyMiddleware } from 'redux';
 import logger from 'redux-logger';
-import apiListReducer from './api-list-reducer';
+import userActionReducer from './UserActionReducer';
 
 const middlewares = [logger];
 
-const store = createStore(apiListReducer, applyMiddleware(...middlewares));
+const store = createStore(userActionReducer, applyMiddleware(...middlewares));
 
 export default store;
