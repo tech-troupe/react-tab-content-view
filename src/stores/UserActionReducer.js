@@ -69,12 +69,42 @@ const userActionReducer = (state=INITIAL_STATE, action) => {
             };
 
         case UserActionTypes.SWITCH_TAB:
-            console.log("reducer:", state);
+            console.log("SWITCH_TAB reducer:", state);
             const { allTabs } = state;
             return {
                 ...state,
                 activeTitle: allTabs[action.payload.newTabIndex]
             }
+
+        case UserActionTypes.CLICK_TITLE:
+            console.log("CLICK_TITLE reducer:", state);
+            let newAllTabs = (state.allTabs.indexOf(action.payload.id) != -1) ? 
+                [...state.allTabs] : [...state.allTabs, action.payload.id]
+            console.log("newAllTabs:", newAllTabs);
+            return {
+                ...state,
+                activeTitle: action.payload.id,
+                allTabs:newAllTabs
+            }
+
+        case UserActionTypes.DELETE_TITLE:
+            console.log("DELETE_TITLE reducer:", state);
+            let newDisplayTitles = state.displayedTitles.filter(elem => elem !== action.payload.id);
+            let updatedAllTabs = state.allTabs.filter(elem => elem !== action.payload.id);
+            if(state.activeTitle === action.payload.id)  {
+                if(action.payload.id === 0){
+                    state.activeTitle = 0;
+                }
+                else {
+                    state.activeTitle = state.activeTitle-1;
+                }
+            }
+            return {
+                ...state,
+                displayedTitles:newDisplayTitles,
+                allTabs: updatedAllTabs
+            }
+
         default:
             return state;
     }

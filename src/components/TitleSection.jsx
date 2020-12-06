@@ -49,11 +49,11 @@ class TitleSection extends React.Component {
   
 
   render() {
-    const { classes } = this.props;
+    // const { classes } = this.props;
     return (
       <div className="title-section-container">
-        <Card className="card-container">
-          <CardContent className="card-content">
+        <Card className="classes.details">
+          <CardContent className="classes.content">
             {this.props.displayedTitles.map((objId) => {
                 console.log("chip obj:", objId);
                 let obj = this.findObject(objId)
@@ -96,5 +96,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps)(TitleSection);
-
 // )(withStyles(useStyles)(TitleSection));
