@@ -66,6 +66,9 @@ class TabSection extends React.Component {
     this.props.deleteTab(parseInt(indx));
   };
 
+  findObject = (objId) => 
+    this.props.data.find(item => item.titleId === objId)
+
   render() {
     const { classes } = this.props;
 
@@ -85,18 +88,19 @@ class TabSection extends React.Component {
             scrollButtons="on"
             aria-label="scrollable force tabs example"
           >
-            {this.props.allTabs.map((title, idx) => (
-              <Tab
-                label={title}
+            {this.props.allTabs.map((titleId, idx) => {
+              let obj = this.findObject(titleId);
+              return <Tab
+                label={obj.title}
                 key={idx}
                 {...a11yProps(idx)}
                 icon={<Close id={idx} onClick={(e) => this.deleteTab(idx, e)} />}
               />
-            ))}
+            })}
           </Tabs>
         </AppBar>
         <TabPanel
-          value={this.props.activeTab}
+          value={this.props.activeTabIndex}
           index={this.props.activeTabIndex}
         >
           <Box
@@ -106,15 +110,9 @@ class TabSection extends React.Component {
             m={0}
             bgcolor="background.paper"
           >
-            {this.props.data.filter((obj) => {
-              console.log("obj.title:",obj.title, ":obj.content:",this.props.activeTab);
-              if (obj.title === this.props.activeTab) {
-                console.log("obj.title1:",obj.title, ":obj.content1:",this.props.activeTab);
-                return (<div>
-                          {obj.content} 
-                      </div>)
-              }
-            })}
+          {
+            this.findObject(this.props.activeTab).content
+          }
           </Box>
         </TabPanel>
       </div>

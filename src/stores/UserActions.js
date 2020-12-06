@@ -9,6 +9,13 @@ export const setRemoveTitlePayload = title => (
     }
 )
 
+export const intialize = () => (
+    {
+        type:UserActionTypes.INITIALIZE,
+        payload: null
+    }
+)
+
 export const intializeState = () => (
     {
         type:UserActionTypes.INITIALIZE,
@@ -31,6 +38,24 @@ export const switchTab = (prevIdx, newIdx) => (
         payload: {
             prevTabIndex: prevIdx,
             newTabIndex: newIdx
+        }
+    }
+)
+
+export const deleteTitle = (titleId) => (
+    {
+        type: UserActionTypes.DELETE_TITLE,
+        payload: {
+            id:titleId
+        }
+    }
+)
+
+export const clickTitle = (titleId) => (
+    {
+        type: UserActionTypes.CLICK_TITLE,
+        payload: {
+            id:titleId
         }
     }
 )
