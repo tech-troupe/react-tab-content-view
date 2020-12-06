@@ -4,6 +4,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import TitleSection from './TitleSection';
 import TabSection from './TabSection';
 
+import './TabContent.css';
+
 const useStyles = makeStyles((theme) => ({
     root: {
       display: 'flex',
@@ -32,7 +34,7 @@ export const TabContent  = () => {
     const classes = useStyles();
 
     return (
-        <div>
+        <div className="tab-content-container">
             <Card className={classes.details}>
                 <TitleSection/>
             </Card>
