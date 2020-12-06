@@ -1,36 +1,6 @@
 import {UserActionTypes} from './UserActionTypes';
 
-const INITIAL_STATE  = {
-    allTitles: [1,2,3,4],
-    displayedTitles:[1,2,3,4],
-    data:[
-        {
-            "titleId":1,
-            "title":"title1",
-            "content":"content1"
-        },
-        {
-            "titleId":2,
-            "title":"title2",
-            "content":"content2"
-        },
-        {
-            "titleId":3,
-            "title":"title3",
-            "content":"content3"
-        },
-        {
-            "titleId":4,
-            "title":"title4",
-            "content":"content4"
-        },
-    ],
-    allTabs:[1,2],
-    activeTitle:2,
-    closedTitle:null
-}
-
-const userActionReducer = (state=INITIAL_STATE, action) => {
+const userActionReducer = (state=[], action) => {
     switch (action.type) {
         
         case UserActionTypes.INITIALIZE:

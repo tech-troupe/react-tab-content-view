@@ -1,45 +1,13 @@
-import React from 'react';
-import {TabContent} from'./TabContent';
-
+import React from "react";
+import { TabContent } from "./TabContent";
+import { processInput } from "./helper/InputProcessor";
+import { Provider } from "react-redux";
+import store from "../stores/store";
+import "./ReactTabContentView.css";
 
 class ReactTabContentView extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      data: [
-        {
-          groupTitle: "group1",
-          groupContent : [
-            {
-              titile: "title1",
-              content:"content1"
-            },
-            {
-              titile: "title2",
-              content:"content2"
-            }
-          ]
-        },
-        {
-          groupTitle: "group2",
-          groupContent : [
-            {
-              titile: "title3",
-              content:"content3"
-            },
-            {
-              titile: "title4",
-              content:"content4"
-            }
-          ]
-        }
-      ]
-    };
-  }
-
-  static defaultProps = {
-    src:{},
-    titleType: 'chips'
+  constructor(props) {
+    super(props);
   }
 
   componentDidMount() {
@@ -56,13 +24,16 @@ class ReactTabContentView extends React.Component {
 
   validateState = (state) => {
     //TBD
-  }
+  };
 
   render() {
+    const transformedInput = processInput(this.props.src);
     return (
-      <div className='react-tab-content-view'>
-        <TabContent />
-      </div>
+      <Provider store={store(transformedInput)}>
+        <div className="react-tab-content-view">
+          <TabContent />
+        </div>
+      </Provider>
     );
   }
 }

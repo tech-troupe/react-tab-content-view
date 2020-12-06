@@ -66,7 +66,7 @@ class TabSection extends React.Component {
     this.props.deleteTab(parseInt(indx));
   };
 
-  findObject = (objId) => 
+  findObject = (objId) =>
     this.props.data.find(item => item.titleId === objId)
 
   render() {
