@@ -19,6 +19,7 @@ const initialState = {
     {
       title: "title3",
       content: "content3",
+      default: false,
     },
     {
       title: "title4",
