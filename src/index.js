@@ -8,21 +8,30 @@ const initialState = {
   titleDelete: false,
   data: [
     {
-      title: "title1",
-      content: "content1",
+      title: "Joey",
+      content: "Joey doesn't share fooooodddd.....",
     },
     {
-      title: "title2",
-      content: "content2",
+      title: "Monica",
+      content: "Until I was 25 I thought the only response to \'I love you\' was \'Oh crap!\'",
+      default: false,
+    },
+    {
+      title: "Chandler",
+      content: "I can handle this. Handle is my middle name. Actually, handle is the middle of my first name.",
       default: true,
     },
     {
-      title: "title3",
-      content: "content3",
+      title: "Phoebe",
+      content: "If you want to receive e-mails about my upcoming shows, please give me money so I can buy a computer.",
     },
     {
-      title: "title4",
-      content: "content4",
+      title: "Ross",
+      content: "Pivot! Pivot! Pivot! Pivot! Pivot!",
+    },
+    {
+      title: "Rachel",
+      content: "I'm not supposed to put beef in the trifle!",
     },
   ],
 };

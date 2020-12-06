@@ -9,6 +9,9 @@
 |sortTitlesInGroup|true,false|false|Set to true to sort titles.|
 |groupVertical|true,false|true|Set to list the titles in a group vertically aligned|
 
+## Additional Features
+
+- The users can specify the default tab to be display in their input, by adding 'default: true' in their input. Please refer to the JSON structure below for a sample. Kindly note that only one default tab is allowed.
 
 ## Sample Source Json Structure
 ```
@@ -19,7 +22,8 @@
             "titles": [
                 {
                     "title":"title1",
-                    "content":"content1"
+                    "content":"content1",
+                    "default": true
                 },
                 {
                     "title":"title2",
