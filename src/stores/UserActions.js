@@ -59,3 +59,9 @@ export const clickTitle = (titleId) => (
         }
     }
 )
+
+export const refreshTitles = () => (
+    {
+        type: UserActionTypes.REFRESH_TITLES,
+    }
+)

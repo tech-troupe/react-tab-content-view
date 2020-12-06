@@ -1,8 +1,12 @@
 import React, {useState} from 'react';
+import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 import Card from '@material-ui/core/Card';
 import { makeStyles } from '@material-ui/core/styles';
 import TitleSection from './TitleSection';
 import TabSection from './TabSection';
+import {ReactComponent as RefreshIcon} from '../../src/assets/refresh.svg';
+import { refreshTitles } from "../stores/UserActions.js";
 
 import './TabContent.css';
 
@@ -30,15 +34,20 @@ const useStyles = makeStyles((theme) => ({
       }
 }));
 
+
 export const TabContent  = () => {
-    const classes = useStyles();
+    
+    const dispatch = useDispatch();
 
     return (
-        <div className="tab-content-container">
-            <Card className={classes.details}>
+        <div className='tab-content-container'>
+            <div className='refresh-icon' onClick={() => dispatch(refreshTitles())}>
+                <RefreshIcon />
+            </div>
+            <Card className='title-container'>
                 <TitleSection/>
             </Card>
-            <Card>
+            <Card className='tab-container'>
                 <TabSection/>
             </Card>
         </div>

@@ -10,3 +10,11 @@
     backface-visibility: hidden;
     transform: translateZ(0);
 }
+
+.refresh-icon {
+    position:absolute;
+    right:30px;
+    top:30px;
+    width: 30px;
+    height: 30px;
+}

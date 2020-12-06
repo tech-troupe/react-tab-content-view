@@ -74,7 +74,13 @@ const userActionReducer = (state=[], action) => {
                 displayedTitles:newDisplayTitles,
                 allTabs: updatedAllTabs
             }
-
+        
+        case UserActionTypes.REFRESH_TITLES:
+            console.log("UserActionTypes.REFRESH_TITLES");
+            return {
+                ...state,
+                displayedTitles: state.allTitles
+            }
         default:
             return state;
     }

@@ -12,5 +12,6 @@ export const UserActionTypes  = {
     SWITCH_TAB:'SWITCH_TAB',
     //Click title
     CLICK_TITLE: 'CLICK_TITLE',
-
+    //refresh all titles
+    REFRESH_TITLES: 'REFRESH_TITLES',
 }

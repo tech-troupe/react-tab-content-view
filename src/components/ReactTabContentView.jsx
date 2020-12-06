@@ -3,38 +3,25 @@ import { TabContent } from "./TabContent";
 import { processInput } from "./helper/InputProcessor";
 import { Provider } from "react-redux";
 import store from "../stores/store";
+import PropTypes from "prop-types"
 
-class ReactTabContentView extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  componentDidMount() {
-    //TBD
-  }
-
-  componentDidUpdate() {
-    //TBD
-  }
-
-  componentWillUnmount() {
-    //TBD
-  }
-
-  validateState = (state) => {
-    //TBD
-  };
-
-  render() {
-    const transformedInput = processInput(this.props.src);
+const ReactTabContentView =  (props) => {
+    const {titleType, titleDelete} = props;
+    const transformedInput = processInput(props.src);
     return (
       <Provider store={store(transformedInput)}>
         <div className="react-tab-content-view">
-          <TabContent />
+          <TabContent titleType={titleType} titleDelete={titleDelete}/>
         </div>
       </Provider>
     );
-  }
 }
+
+ReactTabContentView.propTypes = {
+  titleType: PropTypes.oneOf(['chips', 'buttons', 'checkboxes']),
+  titleDelete: PropTypes.bool,
+  src: PropTypes.object.isRequired
+}
+
 
 export default ReactTabContentView;
