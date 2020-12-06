@@ -3,7 +3,6 @@ import { TabContent } from "./TabContent";
 import { processInput } from "./helper/InputProcessor";
 import { Provider } from "react-redux";
 import store from "../stores/store";
-import "./ReactTabContentView.css";
 
 class ReactTabContentView extends React.Component {
   constructor(props) {
