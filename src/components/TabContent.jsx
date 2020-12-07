@@ -1,12 +1,11 @@
-import React, {useState} from 'react';
-import { connect } from "react-redux";
+import React, {useEffect} from 'react';
 import { useDispatch } from "react-redux";
 import Card from '@material-ui/core/Card';
 import { makeStyles } from '@material-ui/core/styles';
 import TitleSection from './TitleSection';
 import TabSection from './TabSection';
 import {ReactComponent as RefreshIcon} from '../../src/assets/refresh.svg';
-import { refreshTitles } from "../stores/UserActions.js";
+import { refreshTitles,setInputProps } from "../stores/UserActions.js";
 
 import './TabContent.css';
 
@@ -35,15 +34,20 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export const TabContent  = () => {
+export const TabContent  = (props) => {
     
     const dispatch = useDispatch();
+    useEffect(()=>{
+        dispatch(setInputProps(props));
+      }, [props]);
 
     return (
         <div className='tab-content-container'>
-            <div className='refresh-icon' onClick={() => dispatch(refreshTitles())}>
-                <RefreshIcon />
-            </div>
+            {props.titleRefreshAll === true && 
+                <div className='refresh-icon' onClick={() => dispatch(refreshTitles())}>
+                    <RefreshIcon />
+                </div>
+            }
             <Card className='title-container'>
                 <TitleSection/>
             </Card>

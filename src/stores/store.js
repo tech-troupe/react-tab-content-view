@@ -4,7 +4,16 @@ import userActionReducer from "./UserActionReducer";
 
 const middlewares = [logger];
 
-const store = (data) =>
-  createStore(userActionReducer, data, applyMiddleware(...middlewares));
+const store = (data) => {
+    let initialState = {
+        ...data,
+        titleDelete: true,
+        titleRefreshAll: true,
+        sortTitlesInGroup: false,
+        groupVertical:true,
+        closedTitle : null,
+    };
+    return createStore(userActionReducer, initialState, applyMiddleware(...middlewares));
+}
 
 export default store;

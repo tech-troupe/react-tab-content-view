@@ -65,3 +65,12 @@ export const refreshTitles = () => (
         type: UserActionTypes.REFRESH_TITLES,
     }
 )
+
+export const setInputProps = (inputProps) => (
+    {
+        type: UserActionTypes.SET_INPUT_PROPS,
+        payload: {
+            inputProps: inputProps
+        }
+    }
+)

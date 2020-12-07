@@ -14,4 +14,6 @@ export const UserActionTypes  = {
     CLICK_TITLE: 'CLICK_TITLE',
     //refresh all titles
     REFRESH_TITLES: 'REFRESH_TITLES',
+    //Sets inpit pros to the state
+    SET_INPUT_PROPS: 'SET_INPUT_PROPS',
 }

@@ -64,7 +64,7 @@ class TitleSection extends React.Component {
                     color="primary"
                     label={obj.title}
                     onClick={() => this.handleClick(obj.titleId)}
-                    onDelete={(e) => this.handleDelete(obj.titleId, e)}
+                    onDelete={this.props.titleDelete ? (e) => this.handleDelete(obj.titleId, e) : undefined }
                     />
             })}
           </CardContent>
@@ -81,6 +81,7 @@ const mapStateToProps = (state) => {
     displayedTitles: state.displayedTitles,
     activeTitle: state.activeTitle,
     data: state.data,
+    titleDelete: state.titleDelete,
   };
 };
 

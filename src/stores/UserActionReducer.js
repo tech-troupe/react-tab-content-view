@@ -81,6 +81,24 @@ const userActionReducer = (state=[], action) => {
                 ...state,
                 displayedTitles: state.allTitles
             }
+
+        case UserActionTypes.REFRESH_TITLES:
+            console.log("UserActionTypes.REFRESH_TITLES");
+            return {
+                ...state,
+                displayedTitles: state.allTitles
+            }
+        
+        case UserActionTypes.SET_INPUT_PROPS:
+            console.log("SET_INPUT_PROPS-titleDelete:", action.payload.inputProps.titleDelete);
+            return {
+                ...state,
+                titleRefreshAll : action.payload.inputProps.titleRefreshAll !== undefined ?
+                            action.payload.inputProps.titleRefreshAll : true,
+                titleDelete :  (action.payload.inputProps.titleDelete !== undefined)
+                            ? action.payload.inputProps.titleDelete : true
+            }
+
         default:
             return state;
     }
