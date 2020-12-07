@@ -6,13 +6,13 @@ import store from "../stores/store";
 import PropTypes from "prop-types";
 
 const ReactTabContentView = (props) => {
-  const { titleType, titleDelete } = props;
+  const { titleType, titleDelete, titleRefreshAll } = props;
 
   const transformedInput = processInput(props.src);
   return (
     <Provider store={store(transformedInput)}>
       <div className="react-tab-content-view">
-        <TabContent titleType={titleType} titleDelete={titleDelete} />
+        <TabContent titleType={titleType} titleDelete={titleDelete} titleRefreshAll={titleRefreshAll} />
       </div>
     </Provider>
   );

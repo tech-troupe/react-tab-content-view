@@ -40,7 +40,8 @@ export const TabContent  = (props) => {
     useEffect(()=>{
         dispatch(setInputProps(props));
       }, [props]);
-
+    
+    const showRefreshIcon = useSelector( state => state.titleRefreshAll);
     const error = useSelector(state => state.error);
     if (error) {
         return(
@@ -51,19 +52,17 @@ export const TabContent  = (props) => {
         );
     }
 
-    // const showRefreshIcon = useSelector( state => state.titleRefreshAll);
-    // var refreshIcon;
-    // if(showRefreshIcon) {
-    //     refreshIcon = <div className='refresh-icon' onClick={() => dispatch(refreshTitles())}>
-    //                             <RefreshIcon />
-    //                     </div>
-    // }
+    
+    let refreshIcon;
+    if(showRefreshIcon) {
+        refreshIcon = <div className='refresh-icon' onClick={() => dispatch(refreshTitles())}>
+                                <RefreshIcon />
+                        </div>
+    }
 
     return (
         <div className='tab-content-container'>
-            <div className='refresh-icon' onClick={() => dispatch(refreshTitles())}>
-                <RefreshIcon />
-            </div>
+            {refreshIcon}
             <Card className='title-container'>
                 <TitleSection/>
             </Card>
