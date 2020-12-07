@@ -28,6 +28,12 @@ Or add to your package.json config file:
 }
 ```
 
+### Run Unit Tests
+To run unit tests
+```shell
+npm test
+```
+
 ### Supported Props
 |Name|Type|default|Description|
 |----|----|-----|-------|
