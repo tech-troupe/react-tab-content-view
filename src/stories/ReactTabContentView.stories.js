@@ -27,6 +27,14 @@ const initialState = {
 		{
 			"title": "Chinese",
 			"content": "<b>我们上一次第一次做某事是什么时候？</b><br />这是我们最近几天所做的所有事情中的第一项！！<br /><ul><li>第一次FOSSATHON</li><li>首次尝试构建UI应用程序。</li><li>第一次学习REACT。</li><li>第一次用REACT编写代码。</li><li>首次尝试回馈开源社区。</li><li>白天和黑夜的第一次工作，试图在短短几天内学习和实施。</li></ul><br />"
+		},
+		{
+			"title": "French",
+			"content": "<b>À quand remonte la dernière fois que nous avons fait quelque chose pour la première fois?</b><br />Voici le premier de tout ce que nous avons fait ces derniers jours !!<br /><ul><li>Première fois FOSSATHON</li><li>Première tentative de création d'une application d'interface utilisateur.</li><li>La première fois pour apprendre REACT.</li><li>Première fois d'écrire du code dans REACT.</li><li>Première tentative de redonner à la communauté open source.</li><li>La première fois à travailler jour et nuit, en essayant d'apprendre et de mettre en œuvre en quelques jours seulement</li></ul><br />"
+		},
+		{
+			"title": "Latin",
+			"content": "<b>Ubi ultimum tempus est quaedam res fecit ut primum?</b><br />Primum omnium in paucis diebus nos !!<br /><ul><li>Primo tempore FOSSATHON</li><li>Primo tempore conatur facere in III application.</li><li>Prius discere ad agere.</li><li>STO in codice prius temporis scribere.</li><li>Dare conantur, prius ad fontem aperta est civitas.</li><li>Prius tempore working die ac nocte, ut conatur discere, et a modo per effectum deducendi duobus diebus.</li>"
 		}
 	]
 };
