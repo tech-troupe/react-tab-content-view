@@ -8,6 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 import Close from "@material-ui/icons/Close";
 import Box from "@material-ui/core/Box";
+import renderHTML from 'react-render-html';
 
 import { closeTab, intializeState,switchTab } from "../stores/UserActions.js";
 
@@ -111,7 +112,7 @@ class TabSection extends React.Component {
             bgcolor="background.paper"
           >
           {
-            this.findObject(this.props.activeTab).content
+            renderHTML(this.findObject(this.props.activeTab).content)
           }
           </Box>
         </TabPanel>
