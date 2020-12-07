@@ -1,20 +1,25 @@
 import { expect } from "chai"
 
-import {validate} from "./../../../../src/components/helper/InputProcessor"
+import {validateInputs} from "./../../../../src/components/helper/InputProcessor"
 
 describe("validate", function() {
-    it ("validate titleTypeNotPresentError", function(){
-        let input = {"titleTypeNotPresent": "testTitle"}
-        expect(validate(input).error).exist;
+    it ("validate titleTypeNotPresent", function(){
+        let input = {"data": []}
+        expect(validateInputs(input, null) === null);
+    })
+
+    it ("validate titleTypeUndefined", function(){
+        let input = {"data": []}
+        expect(validateInputs(input, undefined) === null);
     })
 
     it ("validate titleTypeIncorrectError", function() {
-        let input = {"titleType": "testTitle"}
-        expect(validate(input).error).exist;
+        let input = {}
+        expect(validateInputs(input, "chip").error).exist;
     })
 
     it ("validate titleTypeValid", function() {
-        let input = {"titleType": "chips", "data": []}
-        expect(validate(input) === null);
+        let input = {"data": []}
+        expect(validateInputs(input, "chips") === null);
     })
 })

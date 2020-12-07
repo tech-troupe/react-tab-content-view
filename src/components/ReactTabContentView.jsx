@@ -20,7 +20,7 @@ const ReactTabContentView = (props) => {
   const theme = props.theme == 'default'? null : themeOrange;
   const { titleType, titleDelete, titleRefreshAll} = props;
 
-  const transformedInput = processInput(props.src);
+  const transformedInput = processInput(props.src, props.titleType);
   return (
     
       <Provider store={store(transformedInput)}>

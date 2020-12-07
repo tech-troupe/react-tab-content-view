@@ -1,11 +1,11 @@
-export const processInput = (input) => {
-  // const validation_result = validate(input);
-  // if (validation_result) {
-  //   return validation_result;
-  // }
+export const processInput = (src, titleType) => {
+  const validation_result = validateInputs(src, titleType);
+  if (validation_result) {
+    return validation_result;
+  }
 
   let titleId = 1;
-  let processedData = { ...input };
+  let processedData = { ...src };
   processedData.allTitles = [];
   processedData.displayedTitles = [];
   processedData.allTabs = [];
@@ -23,33 +23,24 @@ export const processInput = (input) => {
   return processedData;
 };
 
-export const validate = (input) => {
-  if (!input.titleType) {
-  //   return {
-  //     error: "Input titleType should be specified.",
-  //   };
-  // }
+export const validateInputs = (src, titleType) => {
+  if (!titleType || titleType === undefined) {
+    return null;
+  }
 
-  // if (input.titleDelete === null) {
-  //   return {
-  //     error: "Input.titleDelete should be specified.",
-  //   };
-  // }
-
-    if (!input.titleType &&
-      input.titleType !== "checkbox" &&
-      input.titleType !== "button" &&
-      input.titleType !== "chips"
-    ) {
-      return {
-        error: "Input titleType should be one of {checkbox, button, chips}",
-      };
-    }
+  if (
+    titleType !== "checkboxes" &&
+    titleType !== "buttons" &&
+    titleType !== "chips"
+  ) {
+    return {
+      error: "Input titleType should be one of {checkbox, button, chips}",
+    };
   }
 
   let foundDefault = false;
   let foundMoreThanOneDefault = false;
-  input.data.map((group) => {
+  src.data.map((group) => {
     if (group.default !== null && group.default === true) {
       if (foundDefault) {
         foundMoreThanOneDefault = true;

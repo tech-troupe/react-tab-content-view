@@ -4,12 +4,10 @@ import "./index.css";
 import ReactTabContentView from "./components/ReactTabContentView";
 
 const initialState = {
-  "titleType": "chips",
-  "titleDelete": false,
   "data": [
     {
       "title": "English",
-      "content": "<b>When was the last time we did some thing for the first time\?</b> <br/> Here is the first of everything we did in the last few days!! <br /><ul><li>First time FOSSATHON</li><li>First time trying to build a UI application.</li><li>First time to learn REACT.</li><li>First time to write code in REACT.</li><li>First attempt to give back to the open source community.</li><li>First time working day and night, trying to learn and implement in just a couple of days.</li></ul><br />",
+      "content": "<b>When was the last time we did some thing for the first time?</b> <br/> Here is the first of everything we did in the last few days!! <br /><ul><li>First time FOSSATHON</li><li>First time trying to build a UI application.</li><li>First time to learn REACT.</li><li>First time to write code in REACT.</li><li>First attempt to give back to the open source community.</li><li>First time working day and night, trying to learn and implement in just a couple of days.</li></ul><br />",
     },
     {
       "title": "Tamil",
