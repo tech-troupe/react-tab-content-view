@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { makeStyles } from "@material-ui/core/styles";
 import compose from 'recompose/compose';
 import Card from "@material-ui/core/Card";
-import Typography from "@material-ui/core/Typography";
 import CardContent from "@material-ui/core/CardContent";
 import { withStyles } from "@material-ui/core/styles";
 import Chip from "@material-ui/core/Chip";

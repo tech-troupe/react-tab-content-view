@@ -6,7 +6,7 @@ import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
-import Close from "@material-ui/icons/Close";
+import CancelIcon from '@material-ui/icons/Cancel';
 import Box from "@material-ui/core/Box";
 import renderHTML from 'react-render-html';
 import compose from 'recompose/compose';
@@ -77,7 +77,7 @@ class TabSection extends React.Component {
     }
 
     return (
-      <div className="classes.root">
+      <div className={classes.root}>
         <AppBar position="static" color="default">
           <Tabs
             value={this.props.activeTabIndex}
@@ -92,7 +92,7 @@ class TabSection extends React.Component {
                 label={obj.title}
                 key={idx}
                 {...a11yProps(idx)}
-                icon={<Close id={idx} onClick={(e) => this.deleteTab(idx, e)} />}
+                icon={<CancelIcon id={idx} color="primary" style={{ fontSize: 20 }} onClick={(e) => this.deleteTab(idx, e)}/>}
               />
             })}
           </Tabs>

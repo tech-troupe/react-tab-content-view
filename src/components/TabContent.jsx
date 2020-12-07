@@ -1,7 +1,6 @@
 import React, {useEffect} from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import Card from '@material-ui/core/Card';
-import { makeStyles } from '@material-ui/core/styles';
 import TitleSection from './TitleSection';
 import TabSection from './TabSection';
 import {ReactComponent as RefreshIcon} from '../../src/assets/refresh.svg';
