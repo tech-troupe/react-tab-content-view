@@ -9,6 +9,9 @@
     -moz-osx-font-smoothing: grayscale;
     backface-visibility: hidden;
     transform: translateZ(0);
+    width: 90vw;
+    margin: 0 auto;
+    gap: 20px;
 }
 
 .error-message {

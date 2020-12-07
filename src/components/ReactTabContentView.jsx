@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
 
 const ReactTabContentView = (props) => {
-  const theme = createMuiTheme({
+  const themeOrange = createMuiTheme({
     palette: {
       primary: {
           main: "#ff8f00"
@@ -17,21 +17,25 @@ const ReactTabContentView = (props) => {
       }
     },
   });
-  const { titleType, titleDelete, titleRefreshAll } = props;
+  const theme = props.theme == 'default'? null : themeOrange;
+  const { titleType, titleDelete, titleRefreshAll} = props;
 
   const transformedInput = processInput(props.src);
   return (
-    <ThemeProvider theme={theme}>
+    
       <Provider store={store(transformedInput)}>
-        <div className="react-tab-content-view">
-          <TabContent titleType={titleType} titleDelete={titleDelete} titleRefreshAll={titleRefreshAll} />
-        </div>
+        <ThemeProvider theme={theme}>
+          <div className="react-tab-content-view">
+            <TabContent titleType={titleType} titleDelete={titleDelete} titleRefreshAll={titleRefreshAll} />
+          </div>
+        </ThemeProvider>
       </Provider>
-    </ThemeProvider>
+    
   );
 };
 
 ReactTabContentView.propTypes = {
+  theme: PropTypes.oneOf(["default","orange"]),
   titleType: PropTypes.oneOf(["chips", "buttons", "checkboxes"]),
   titleDelete: PropTypes.bool,
   titleRefreshAll: PropTypes.bool,

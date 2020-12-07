@@ -13,7 +13,6 @@ const useStyles = (theme) => ({
     root: {
       display: 'flex',
       flexDirection: 'column'
-    //   maxWidth: 500,
     },
     details: {
         display: 'flex',

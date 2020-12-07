@@ -1,8 +1,8 @@
 export const processInput = (input) => {
-  const validation_result = validate(input);
-  if (validation_result) {
-    return validation_result;
-  }
+  // const validation_result = validate(input);
+  // if (validation_result) {
+  //   return validation_result;
+  // }
 
   let titleId = 1;
   let processedData = { ...input };
@@ -25,25 +25,26 @@ export const processInput = (input) => {
 
 export const validate = (input) => {
   if (!input.titleType) {
-    return {
-      error: "Input titleType should be specified.",
-    };
-  }
+  //   return {
+  //     error: "Input titleType should be specified.",
+  //   };
+  // }
 
-  if (input.titleDelete === null) {
-    return {
-      error: "Input.titleDelete should be specified.",
-    };
-  }
+  // if (input.titleDelete === null) {
+  //   return {
+  //     error: "Input.titleDelete should be specified.",
+  //   };
+  // }
 
-  if (
-    input.titleType !== "checkbox" &&
-    input.titleType !== "button" &&
-    input.titleType !== "chips"
-  ) {
-    return {
-      error: "Input titleType should be one of {checkbox, button, chips}",
-    };
+    if (!input.titleType &&
+      input.titleType !== "checkbox" &&
+      input.titleType !== "button" &&
+      input.titleType !== "chips"
+    ) {
+      return {
+        error: "Input titleType should be one of {checkbox, button, chips}",
+      };
+    }
   }
 
   let foundDefault = false;
