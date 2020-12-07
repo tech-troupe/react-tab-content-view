@@ -9,6 +9,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Close from "@material-ui/icons/Close";
 import Box from "@material-ui/core/Box";
 import renderHTML from 'react-render-html';
+import compose from 'recompose/compose';
 
 import { closeTab, intializeState,switchTab } from "../stores/UserActions.js";
 
@@ -20,12 +21,10 @@ function a11yProps(index) {
 }
 
 const useStyles = (theme) => ({
-  // tree: {
-  //   flexGrow: 1,
-  //   width: '85vw',
-  //   text-align: left,
-  //   backgroundColor: theme.palette.background.paper,
-  // },
+  root: {
+    flexGrow: 1,
+    backgroundColor: theme.palette.background.paper,
+  }
 });
 
 function TabPanel(props) {
@@ -78,13 +77,11 @@ class TabSection extends React.Component {
     }
 
     return (
-      <div className="tab-section-container">
+      <div className="classes.root">
         <AppBar position="static" color="default">
           <Tabs
             value={this.props.activeTabIndex}
             onChange={this.handleChange}
-            indicatorColor="primary"
-            textColor="primary"
             variant="scrollable"
             scrollButtons="on"
             aria-label="scrollable force tabs example"
@@ -141,7 +138,12 @@ const mapDispatchToProps = (dispatch) => {
   }
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withStyles(useStyles)(TabSection));
+// export default connect(
+//   mapStateToProps,
+//   mapDispatchToProps
+// )(withStyles(useStyles)(TabSection));
+
+export default compose(
+  withStyles(useStyles),
+  connect(mapStateToProps,mapDispatchToProps),
+)(TabSection);

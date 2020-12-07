@@ -9,7 +9,7 @@ import { refreshTitles,setInputProps } from "../stores/UserActions.js";
 
 import './TabContent.css';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = (theme) => ({
     root: {
       display: 'flex',
       flexDirection: 'column'
@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
       pos: {
         marginBottom: 12,
       }
-}));
+});
 
 
 export const TabContent  = (props) => {

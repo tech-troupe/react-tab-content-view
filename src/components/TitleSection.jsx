@@ -1,19 +1,22 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
+import compose from 'recompose/compose';
 import Card from "@material-ui/core/Card";
 import Typography from "@material-ui/core/Typography";
 import CardContent from "@material-ui/core/CardContent";
 import { withStyles } from "@material-ui/core/styles";
 import Chip from "@material-ui/core/Chip";
+import PropTypes from "prop-types";
 
 import { deleteTitle, intialize, clickTitle } from "../stores/UserActions.js";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = (theme) => ({
   root: {
     display: "flex",
-    flexDirection: "column",
-    //   maxWidth: 500,
+    flexDirection: "row",
+    justifyContent: "center",
+      // maxWidth: 800,
   },
   details: {
     display: "flex",
@@ -22,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   content: {
     flex: "1 0 auto",
     "& > *": {
-      margin: theme.spacing(0.5),
+      margin: theme.spacing(1),
     },
   },
   title: {
@@ -31,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
   pos: {
     marginBottom: 12,
   },
-}));
+});
 
 class TitleSection extends React.Component {
   handleClick = (id) => {
@@ -49,17 +52,19 @@ class TitleSection extends React.Component {
   
 
   render() {
-    // const { classes } = this.props;
+    const { classes } = this.props;
+
     return (
-      <div className="title-section-container">
-        <Card className="classes.details">
-          <CardContent className="classes.content">
+      <div className={classes.root}>
+        <Card className={classes.details}>
+          <CardContent className={classes.content}>
             {this.props.displayedTitles.map((objId) => {
                 console.log("chip obj:", objId);
                 let obj = this.findObject(objId)
+                let variantValue = (obj.titleId === this.props.activeTitle) ? "default" : "outlined";
                 return <Chip
                     key={obj.titleId}
-                    variant="outlined"
+                    variant={variantValue}
                     size="small"
                     color="primary"
                     label={obj.title}
@@ -94,7 +99,18 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps)(TitleSection);
+TitleSection.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+// export default connect(
+//   mapStateToProps,
+//   mapDispatchToProps
 // )(withStyles(useStyles)(TitleSection));
+
+export default compose(
+    withStyles(useStyles),
+    connect(mapStateToProps,mapDispatchToProps),
+  )(TitleSection);
+
+  
