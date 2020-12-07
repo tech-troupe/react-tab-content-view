@@ -73,7 +73,7 @@ class TabSection extends React.Component {
     const { classes } = this.props;
 
     if (this.props.allTabs.length === 0) {
-      return <div>Do Not Show Tabs</div>;
+      return <div><h3>You closed all tabs!!</h3></div>;
     }
 
     return (

@@ -5,6 +5,7 @@ import TitleSection from './TitleSection';
 import TabSection from './TabSection';
 import {ReactComponent as RefreshIcon} from '../../src/assets/refresh.svg';
 import { refreshTitles,setInputProps } from "../stores/UserActions.js";
+import Tooltip from '@material-ui/core/Tooltip';
 
 import './TabContent.css';
 
@@ -54,7 +55,9 @@ export const TabContent  = (props) => {
     let refreshIcon;
     if(showRefreshIcon) {
         refreshIcon = <div className='refresh-icon' onClick={() => dispatch(refreshTitles())}>
-                                <RefreshIcon />
+                            <Tooltip title="Refresh to display all titles" aria-label="refresh">
+                                    <RefreshIcon />
+                            </Tooltip>
                         </div>
     }
 
