@@ -11,6 +11,10 @@
     transform: translateZ(0);
 }
 
+.error-message {
+    text-align: center;
+}
+
 .refresh-icon {
     position:absolute;
     right:30px;
