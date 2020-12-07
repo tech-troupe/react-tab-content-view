@@ -1,6 +1,5 @@
-import React, {useState} from 'react';
-import { connect } from "react-redux";
-import { useDispatch } from "react-redux";
+import React from 'react';
+import { useDispatch, useSelector } from "react-redux";
 import Card from '@material-ui/core/Card';
 import { makeStyles } from '@material-ui/core/styles';
 import TitleSection from './TitleSection';
@@ -38,6 +37,16 @@ const useStyles = makeStyles((theme) => ({
 export const TabContent  = () => {
     
     const dispatch = useDispatch();
+    const error = useSelector(state => state.error);
+
+    if (error) {
+        return(
+        <div className='error-message'>
+            <br /><br />Exception Occured - Cannot process the input.<br />
+            {error}
+        </div>
+        );
+    }
 
     return (
         <div className='tab-content-container'>
