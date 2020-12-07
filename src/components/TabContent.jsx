@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Card from '@material-ui/core/Card';
 import { makeStyles } from '@material-ui/core/styles';
 import TitleSection from './TitleSection';
@@ -41,13 +41,29 @@ export const TabContent  = (props) => {
         dispatch(setInputProps(props));
       }, [props]);
 
+    const error = useSelector(state => state.error);
+    if (error) {
+        return(
+        <div className='error-message'>
+            <br /><br />Exception Occured - Cannot process the input.<br />
+            {error}
+        </div>
+        );
+    }
+
+    // const showRefreshIcon = useSelector( state => state.titleRefreshAll);
+    // var refreshIcon;
+    // if(showRefreshIcon) {
+    //     refreshIcon = <div className='refresh-icon' onClick={() => dispatch(refreshTitles())}>
+    //                             <RefreshIcon />
+    //                     </div>
+    // }
+
     return (
         <div className='tab-content-container'>
-            {props.titleRefreshAll === true && 
-                <div className='refresh-icon' onClick={() => dispatch(refreshTitles())}>
-                    <RefreshIcon />
-                </div>
-            }
+            <div className='refresh-icon' onClick={() => dispatch(refreshTitles())}>
+                <RefreshIcon />
+            </div>
             <Card className='title-container'>
                 <TitleSection/>
             </Card>
