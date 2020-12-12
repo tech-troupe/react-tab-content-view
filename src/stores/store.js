@@ -8,6 +8,7 @@ const store = (data) => {
     let initialState = {
         ...data,
         titleDelete: true,
+        // Controls hide/display of refreshAll icon
         titleRefreshAll: true,
         sortTitlesInGroup: false,
         groupVertical:true,

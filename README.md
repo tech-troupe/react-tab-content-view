@@ -35,14 +35,14 @@ npm test
 ```
 
 ### Supported Props
-|Name|Type|default|Description|
-|----|----|-----|-------|
-|src|JSON object|None|This property contains your input JSON|
-|titleType| checkbox, button, chips|chips|Object type to display the titles|
-|titleDelete|true, false|true|Titles will have option to delete|
-|titleRefreshAll|true,false |true|Deleted titles can be restored with refresh option|
-|sortTitlesInGroup|true,false|false|Set to true to sort titles.|
-|groupVertical|true,false|true|Set to list the titles in a group vertically aligned|
+|Name|Type|default|Description|Implementation Status|
+|----|----|-----|-------|------|
+|src|JSON object|None|This property contains your input JSON|Supported|
+|titleType| checkbox, button, chips|chips|Object type to display the titles|Only Chips is supported| 
+|titleDelete|true, false|true|Titles will have option to delete|Supported|
+|titleRefreshAll|true,false |true|Deleted titles can be restored with refresh option|Supported|
+|sortTitlesInGroup|true,false|false|Set to true to sort titles.|Not Supported|
+|groupControl|rows x cols|row default wrapped|Display titles in grid with rows and columns specified|Not Supported|
 
 ### Additional Features
 

@@ -138,11 +138,6 @@ const mapDispatchToProps = (dispatch) => {
   }
 };
 
-// export default connect(
-//   mapStateToProps,
-//   mapDispatchToProps
-// )(withStyles(useStyles)(TabSection));
-
 export default compose(
   withStyles(useStyles),
   connect(mapStateToProps,mapDispatchToProps),

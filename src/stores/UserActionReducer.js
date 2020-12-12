@@ -62,11 +62,13 @@ const userActionReducer = (state=[], action) => {
             let newDisplayTitles = state.displayedTitles.filter(elem => elem !== action.payload.id);
             let updatedAllTabs = state.allTabs.filter(elem => elem !== action.payload.id);
             if(state.activeTitle === action.payload.id)  {
-                if(action.payload.id === 0){
-                    state.activeTitle = 0;
-                }
-                else {
-                    state.activeTitle = state.activeTitle-1;
+                if(updatedAllTabs.length > 0) {
+                    let idxOfDeletedTab = state.allTabs.indexOf(action.payload.id);
+                    if(idxOfDeletedTab === 0) {
+                        state.activeTitle = state.allTabs[1];
+                    } else {
+                        state.activeTitle = state.allTabs[idxOfDeletedTab-1];
+                    }
                 }
             }
             return {
@@ -82,13 +84,6 @@ const userActionReducer = (state=[], action) => {
                 displayedTitles: state.allTitles
             }
 
-        case UserActionTypes.REFRESH_TITLES:
-            console.log("UserActionTypes.REFRESH_TITLES");
-            return {
-                ...state,
-                displayedTitles: state.allTitles
-            }
-        
         case UserActionTypes.SET_INPUT_PROPS:
             console.log("SET_INPUT_PROPS-refreshall:", action.payload.inputProps.titleRefreshAll);
             return {
