@@ -95,7 +95,12 @@ const userActionReducer = (state=[], action) => {
                 titleDelete :  (action.payload.inputProps.titleDelete !== undefined)
                             ? action.payload.inputProps.titleDelete : true
             }
-
+        
+        case UserActionTypes.SET_SUB_TAB_VALUE:
+            return {
+                ...state,
+                currentSubTabValue:action.payload.currentSubTabValue
+            }
         default:
             return state;
     }

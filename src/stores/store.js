@@ -13,6 +13,7 @@ const store = (data) => {
         sortTitlesInGroup: false,
         groupVertical:true,
         closedTitle : null,
+        currentSubTabValue:"0",
     };
     return createStore(userActionReducer, initialState, applyMiddleware(...middlewares));
 }
