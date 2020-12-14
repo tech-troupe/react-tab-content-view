@@ -81,7 +81,9 @@ const userActionReducer = (state=[], action) => {
             console.log("UserActionTypes.REFRESH_TITLES");
             return {
                 ...state,
-                displayedTitles: state.allTitles
+                displayedTitles: state.allTitles,
+                activeTitle: state.defaultTitle,
+                allTabs: [state.defaultTitle]
             }
 
         case UserActionTypes.SET_INPUT_PROPS:
