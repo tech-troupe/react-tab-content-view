@@ -1,7 +1,6 @@
 {
   "name": "react-tab-content-view",
   "version": "0.1.0",
-  "private": true,
   "dependencies": {
     "@material-ui/core": "^4.11.2",
     "@material-ui/icons": "^4.11.2",
@@ -54,5 +53,24 @@
     "@storybook/node-logger": "^6.1.9",
     "@storybook/preset-create-react-app": "^3.1.5",
     "@storybook/react": "^6.1.9"
-  }
+  },
+  "description": "React Tab Content View aka ReTCoV is a React component to display contents with titles and/or groups in the form of tabs, allowing users to control the tabs with various options like chips, buttons and checkboxes. This tool would let the users to quickly generate a web page that can display contents, grouped by titles. <br/><br/>",
+  "main": "index.js",
+  "directories": {
+    "example": "examples"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/tech-troupe/react-tab-content-view.git"
+  },
+  "keywords": [
+    "react",
+    "tabs"
+  ],
+  "author": "Eswar",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tech-troupe/react-tab-content-view/issues"
+  },
+  "homepage": "https://github.com/tech-troupe/react-tab-content-view#readme"
 }
