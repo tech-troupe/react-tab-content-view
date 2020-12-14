@@ -12,6 +12,7 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import Box from "@material-ui/core/Box";
 import renderHTML from 'react-render-html';
 import compose from 'recompose/compose';
+import {ReactComponent as RefreshIcon} from '../../src/assets/refresh.svg';
 
 import { closeTab, intializeState,switchTab, setSubTabValue } from "../stores/UserActions.js";
 
@@ -80,7 +81,8 @@ class TabSection extends React.Component {
     const tabPanels = [];
 
     if (this.props.allTabs.length === 0) {
-      return <div><h3>You closed all tabs!!</h3></div>;
+      return <div><h3>Oops! You closed all tabs!! Don't worry! Use <RefreshIcon style={{width:32}} /> 
+          (Refresh Icon) in top right corner of above title section to bring them back...</h3></div>;
     }
 
     let content = this.findObject(this.props.activeTab).content;
