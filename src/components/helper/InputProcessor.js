@@ -16,6 +16,7 @@ export const processInput = (src, titleType) => {
     if (group.default === true) {
       processedData.allTabs.push(titleId);
       processedData.activeTitle = titleId;
+      processedData.defaultTitle = titleId;
     }
     processedData.displayedTitles.push(titleId);
     titleId++;
