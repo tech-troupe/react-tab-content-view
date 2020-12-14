@@ -57,7 +57,6 @@ class TitleSection extends React.Component {
         <Card className={classes.details}>
           <CardContent className={classes.content}>
             {this.props.displayedTitles.map((objId) => {
-                console.log("chip obj:", objId);
                 let obj = this.findObject(objId)
                 let variantValue = (obj.titleId === this.props.activeTitle) ? "default" : "outlined";
                 return <Chip
