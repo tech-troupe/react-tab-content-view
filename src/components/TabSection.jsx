@@ -4,6 +4,8 @@ import PropTypes from "prop-types";
 import AppBar from "@material-ui/core/AppBar";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
+import TabList from "@material-ui/lab/TabList";
+import { TabContext } from "@material-ui/lab";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 import CancelIcon from '@material-ui/icons/Cancel';
@@ -11,7 +13,7 @@ import Box from "@material-ui/core/Box";
 import renderHTML from 'react-render-html';
 import compose from 'recompose/compose';
 
-import { closeTab, intializeState,switchTab } from "../stores/UserActions.js";
+import { closeTab, intializeState,switchTab, setSubTabValue } from "../stores/UserActions.js";
 
 function a11yProps(index) {
   return {
@@ -28,10 +30,11 @@ const useStyles = (theme) => ({
 });
 
 function TabPanel(props) {
-  const { children, value, index, ...other } = props;
+  const { children, value, index, key, ...other } = props;
 
   return (
     <div
+      key={key}
       role="tabpanel"
       hidden={value !== index}
       id={`scrollable-force-tabpanel-${index}`}
@@ -59,10 +62,12 @@ class TabSection extends React.Component {
     this.props.switchTab(this.props.activeTabIndex, idx);
   };
 
+  handleChangeSubTab = (e,newSubTabValue) => {
+    this.props.setSubTabValue(newSubTabValue);
+  }
+
   deleteTab = (indx,e) => {
     e.stopPropagation();
-    console.log("deleteTab:",indx);
-    // console.log("deleteEvent:",e);
     this.props.deleteTab(parseInt(indx));
   };
 
@@ -71,9 +76,51 @@ class TabSection extends React.Component {
 
   render() {
     const { classes } = this.props;
+    const subTabs = [];
+    const tabPanels = [];
 
     if (this.props.allTabs.length === 0) {
       return <div><h3>You closed all tabs!!</h3></div>;
+    }
+
+    let content = this.findObject(this.props.activeTab).content;
+    let hasSubTab = (typeof content === "string") ? false : true;
+
+    let tabContent = "";
+    if (!hasSubTab) {
+      tabContent = renderHTML(content);
+    } else {
+      content.map( (obj,idx) => {
+        const {subtitle, subcontent} = obj;
+
+        //add subtab to active tab
+        subTabs.push(
+          <Tab
+                label={subtitle}
+                value={idx.toString()}
+                key={idx}
+                {...a11yProps(idx)}
+              />
+        );
+
+        //add content to active tab
+        tabPanels.push(
+          <TabPanel
+          value={idx.toString()}
+          index={this.props.subTabValue}
+          key={idx}
+          children={renderHTML(subcontent)}
+          />
+        );
+
+      });
+      tabContent = 
+        <TabContext value={this.props.subTabValue.toString()}>
+          <TabList onChange={this.handleChangeSubTab}>
+            {subTabs}
+          </TabList>
+          {tabPanels}
+        </TabContext>
     }
 
     return (
@@ -97,22 +144,7 @@ class TabSection extends React.Component {
             })}
           </Tabs>
         </AppBar>
-        <TabPanel
-          value={this.props.activeTabIndex}
-          index={this.props.activeTabIndex}
-        >
-          <Box
-            display="flex"
-            flexDirection="row"
-            p={0}
-            m={0}
-            bgcolor="background.paper"
-          >
-          {
-            renderHTML(this.findObject(this.props.activeTab).content)
-          }
-          </Box>
-        </TabPanel>
+        {tabContent}
       </div>
     );
   }
@@ -126,6 +158,7 @@ const mapStateToProps = (state) => {
     activeTab: state.activeTitle,
     activeTabIndex: state.allTabs.indexOf(state.activeTitle),
     data: state.data,
+    subTabValue: state.currentSubTabValue,
   };
 };
 
@@ -134,7 +167,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     deleteTab: (indx) => dispatch(closeTab(indx)),
     intializeState: () => dispatch(intializeState()),
-    switchTab: (prevIdx, newIdx) => dispatch(switchTab(prevIdx, newIdx))
+    switchTab: (prevIdx, newIdx) => dispatch(switchTab(prevIdx, newIdx)),
+    setSubTabValue: (newIdx) => dispatch(setSubTabValue(newIdx)),
   }
 };
 

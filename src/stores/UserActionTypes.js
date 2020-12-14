@@ -8,7 +8,7 @@ export const UserActionTypes  = {
     DELETE_TITLE: 'DELETE_TITLE',
     // close tab
     CLOSE_TAB:'CLOSE_TAB',
-    //switch tab
+    //switch main tab
     SWITCH_TAB:'SWITCH_TAB',
     //Click title
     CLICK_TITLE: 'CLICK_TITLE',
@@ -16,4 +16,6 @@ export const UserActionTypes  = {
     REFRESH_TITLES: 'REFRESH_TITLES',
     //Sets inpit pros to the state
     SET_INPUT_PROPS: 'SET_INPUT_PROPS',
+    //Switch sub tabs
+    SET_SUB_TAB_VALUE: 'SET_SUB_TAB_VALUE',
 }

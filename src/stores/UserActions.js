@@ -74,3 +74,12 @@ export const setInputProps = (inputProps) => (
         }
     }
 )
+
+export const setSubTabValue = (newValue) => (
+    {
+        type: UserActionTypes.SET_SUB_TAB_VALUE,
+        payload: {
+            currentSubTabValue:newValue
+        }
+    }
+)

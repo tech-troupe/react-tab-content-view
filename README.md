@@ -1,7 +1,12 @@
 
 # React Tab Content View
-React Tab Content View aka ReTCoV is a tool for displaying contents with titles and/or groups in the form of tabs, allowing users to control the tabs with various options like chips, buttons and checkboxes. This tool would let the users to quickly generate a web page that can display contents, grouped by titles.
+React Tab Content View aka ReTCoV is a React component to display contents with titles and/or groups in the form of tabs, allowing users to control the tabs with various options like chips, buttons and checkboxes. This tool would let the users to quickly generate a web page that can display contents, grouped by titles.
 <br/><br/>
+
+## Demo In Storybook
+Follow below link to view the features provided by this component: </br>
+[react-tab-content-view](https://tech-troupe.github.io/react-tab-content-view/)
+
 ### Implementation Example
 ```js
 // import the react-tab-content-view component
