@@ -71,6 +71,5 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/tech-troupe/react-tab-content-view/issues"
-  },
-  "homepage": "https://github.com/tech-troupe/react-tab-content-view#readme"
+  }
 }
