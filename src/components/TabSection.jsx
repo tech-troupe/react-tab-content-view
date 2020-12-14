@@ -81,8 +81,8 @@ class TabSection extends React.Component {
     const tabPanels = [];
 
     if (this.props.allTabs.length === 0) {
-      return <div><h3>Oops! You closed all tabs!! Don't worry! Use <RefreshIcon style={{width:32}} /> 
-          (Refresh Icon) in top right corner of above title section to bring them back...</h3></div>;
+      return <div><h3>Oops! You closed all tabs!! Don't worry! Use <RefreshIcon style={{width:25}} /> 
+          (Refresh Icon) on top right corner of above title section to bring them back...</h3></div>;
     }
 
     let content = this.findObject(this.props.activeTab).content;
