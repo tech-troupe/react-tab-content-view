@@ -88,12 +88,23 @@ const userActionReducer = (state=[], action) => {
 
         case UserActionTypes.SET_INPUT_PROPS:
             console.log("SET_INPUT_PROPS-refreshall:", action.payload.inputProps.titleRefreshAll);
+            const searchResultObj = {}
+            if (action.payload.inputProps.searchResult !== undefined){
+                console.log("searchResult", action.payload.inputProps.searchResult)
+                
+                action.payload.inputProps.searchResult.map((obj)=> {
+                    searchResultObj[obj.title] = obj.count 
+                })
+                console.log("searchResultObj:",searchResultObj)
+            }
             return {
                 ...state,
                 titleRefreshAll : (action.payload.inputProps.titleRefreshAll !== undefined) ?
                             action.payload.inputProps.titleRefreshAll : true,
                 titleDelete :  (action.payload.inputProps.titleDelete !== undefined)
-                            ? action.payload.inputProps.titleDelete : true
+                            ? action.payload.inputProps.titleDelete : true,
+                searchResult: (action.payload.inputProps.searchResult !== undefined)
+                            ? searchResultObj : {}
             }
         
         case UserActionTypes.SET_SUB_TAB_VALUE:

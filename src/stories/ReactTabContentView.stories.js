@@ -100,21 +100,6 @@ const withSubTab = {
 };
 
 
-const withoutContent = {
-  data: [
-    {
-      title: "English",
-	  default: true,
-    },
-    {
-      title: "Tamil",
-    },
-    {
-      title: "Russian",
-    },
-  ],
-};
-
 export default {
   title: "Test Case 1/ReactTabContentView",
   component: ReactTabContentView,
@@ -126,8 +111,4 @@ export const BasicTitlesNoSubTab = (args) => (
 
 export const BasicTitlesWithSubTab = (args) => (
   <ReactTabContentView {...args} src={withSubTab} />
-);
-
-export const BasicTitlesWithoutContent = (args) => (
-  <ReactTabContentView {...args} src={withoutContent} />
 );

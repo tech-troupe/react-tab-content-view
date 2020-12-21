@@ -16,17 +16,7 @@ const store = (data) => {
         closedTitle : null,
         currentSubTabValue:"0",
         mode:"search",
-        searchKeyWord:"FOSS",
-        searchResult: {
-            "Tamil":1,
-            "English":1,
-            "Hindi":1,
-            // "Russian":0,
-            // "Spanish":0,
-            // "Chinese":0,
-            // "French":0,
-            // "Latin":0,
-        }
+        searchResult:null
     };
     return createStore(userActionReducer, initialState, applyMiddleware(...middlewares));
 }

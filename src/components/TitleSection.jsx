@@ -60,7 +60,21 @@ class TitleSection extends React.Component {
             {this.props.displayedTitles.map((objId) => {
                 let obj = this.findObject(objId)
                 let variantValue = (obj.titleId === this.props.activeTitle) ? "default" : "outlined";
-                {/* {console.log("searchResult", this.props.searchResult[obj.title])} */}
+                {console.log("searchResult", this.props.searchResult)}
+
+                if (this.props.searchResult === null){
+                  return <Chip
+                    key={obj.titleId}
+                    variant={variantValue}
+                    size="small"
+                    color="primary"
+                    label={obj.title}
+                    onClick={() => this.handleClick(obj.titleId)}
+                    onDelete={this.props.titleDelete ? (e) => this.handleDelete(obj.titleId, e) : undefined }
+                    />
+                }
+
+                else {
                 return (<Badge badgeContent={this.props.searchResult[obj.title] ? this.props.searchResult[obj.title] : 0} color="secondary">
                 <Chip
                     key={obj.titleId}
@@ -72,6 +86,7 @@ class TitleSection extends React.Component {
                     onDelete={this.props.titleDelete ? (e) => this.handleDelete(obj.titleId, e) : undefined }
                     />
                     </Badge>)
+                }
 
                 
             })}
