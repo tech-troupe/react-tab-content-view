@@ -48,7 +48,7 @@ const userActionReducer = (state=[], action) => {
 
         case UserActionTypes.CLICK_TITLE:
             console.log("CLICK_TITLE reducer:", state);
-            let newAllTabs = (state.allTabs.indexOf(action.payload.id) != -1) ? 
+            let newAllTabs = (state.allTabs.indexOf(action.payload.id) !== -1) ? 
                 [...state.allTabs] : [...state.allTabs, action.payload.id]
             console.log("newAllTabs:", newAllTabs);
             return {

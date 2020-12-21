@@ -86,6 +86,11 @@ class TabSection extends React.Component {
     }
 
     let content = this.findObject(this.props.activeTab).content;
+
+    if (content===undefined){
+      return <div></div>
+    }
+
     let hasSubTab = (typeof content === "string") ? false : true;
 
     let tabContent = "";

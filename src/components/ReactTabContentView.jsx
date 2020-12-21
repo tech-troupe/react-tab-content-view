@@ -13,7 +13,7 @@ const ReactTabContentView = (props) => {
           main: "#ff8f00"
       },
       secondary: {
-        main: "#ffcc80"
+        main: "#0047ff"
       }
     },
   });

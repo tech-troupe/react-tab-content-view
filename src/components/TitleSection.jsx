@@ -5,6 +5,7 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import { withStyles } from "@material-ui/core/styles";
 import Chip from "@material-ui/core/Chip";
+import Badge from '@material-ui/core/Badge';
 import PropTypes from "prop-types";
 
 import { deleteTitle, intialize, clickTitle } from "../stores/UserActions.js";
@@ -59,7 +60,9 @@ class TitleSection extends React.Component {
             {this.props.displayedTitles.map((objId) => {
                 let obj = this.findObject(objId)
                 let variantValue = (obj.titleId === this.props.activeTitle) ? "default" : "outlined";
-                return <Chip
+                {/* {console.log("searchResult", this.props.searchResult[obj.title])} */}
+                return (<Badge badgeContent={this.props.searchResult[obj.title] ? this.props.searchResult[obj.title] : 0} color="secondary">
+                <Chip
                     key={obj.titleId}
                     variant={variantValue}
                     size="small"
@@ -68,6 +71,9 @@ class TitleSection extends React.Component {
                     onClick={() => this.handleClick(obj.titleId)}
                     onDelete={this.props.titleDelete ? (e) => this.handleDelete(obj.titleId, e) : undefined }
                     />
+                    </Badge>)
+
+                
             })}
           </CardContent>
         </Card>
@@ -84,6 +90,8 @@ const mapStateToProps = (state) => {
     activeTitle: state.activeTitle,
     data: state.data,
     titleDelete: state.titleDelete,
+    searchKeyword: state.searchKeyword,
+    searchResult: state.searchResult
   };
 };
 
