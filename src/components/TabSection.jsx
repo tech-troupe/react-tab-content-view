@@ -8,13 +8,18 @@ import TabList from "@material-ui/lab/TabList";
 import { TabContext } from "@material-ui/lab";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
-import CancelIcon from '@material-ui/icons/Cancel';
+import CancelIcon from "@material-ui/icons/Cancel";
 import Box from "@material-ui/core/Box";
-import renderHTML from 'react-render-html';
-import compose from 'recompose/compose';
-import {ReactComponent as RefreshIcon} from '../../src/assets/refresh.svg';
+import renderHTML from "react-render-html";
+import compose from "recompose/compose";
+import { ReactComponent as RefreshIcon } from "../../src/assets/refresh.svg";
 
-import { closeTab, intializeState,switchTab, setSubTabValue } from "../stores/UserActions.js";
+import {
+  closeTab,
+  intializeState,
+  switchTab,
+  setSubTabValue,
+} from "../stores/UserActions.js";
 
 function a11yProps(index) {
   return {
@@ -27,7 +32,7 @@ const useStyles = (theme) => ({
   root: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
-  }
+  },
 });
 
 function TabPanel(props) {
@@ -58,22 +63,21 @@ TabPanel.propTypes = {
 };
 
 class TabSection extends React.Component {
- 
   handleChange = (e, idx) => {
     this.props.switchTab(this.props.activeTabIndex, idx);
   };
 
-  handleChangeSubTab = (e,newSubTabValue) => {
+  handleChangeSubTab = (e, newSubTabValue) => {
     this.props.setSubTabValue(newSubTabValue);
-  }
+  };
 
-  deleteTab = (indx,e) => {
+  deleteTab = (indx, e) => {
     e.stopPropagation();
     this.props.deleteTab(parseInt(indx));
   };
 
   findObject = (objId) =>
-    this.props.data.find(item => item.titleId === objId)
+    this.props.data.find((item) => item.titleId === objId);
 
   render() {
     const { classes } = this.props;
@@ -81,53 +85,59 @@ class TabSection extends React.Component {
     const tabPanels = [];
 
     if (this.props.allTabs.length === 0) {
-      return <div><h3>Oops! You closed all tabs!! Don't worry! Use <RefreshIcon style={{width:25}} /> 
-          (Refresh Icon) on top right corner of above title section to bring them back...</h3></div>;
+      return (
+        <div>
+          <h3>
+            Oops! You closed all tabs!! Don't worry! Use{" "}
+            <RefreshIcon style={{ width: 25 }} />
+            (Refresh Icon) on top right corner of above title section to bring
+            them back...
+          </h3>
+        </div>
+      );
     }
 
     let content = this.findObject(this.props.activeTab).content;
 
-    if (content===undefined){
-      return <div></div>
+    if (content === undefined) {
+      return <div></div>;
     }
 
-    let hasSubTab = (typeof content === "string") ? false : true;
+    let hasSubTab = typeof content === "string" ? false : true;
 
     let tabContent = "";
     if (!hasSubTab) {
       tabContent = renderHTML(content);
     } else {
-      content.map( (obj,idx) => {
-        const {subtitle, subcontent} = obj;
+      content.map((obj, idx) => {
+        const { subtitle, subcontent } = obj;
 
         //add subtab to active tab
         subTabs.push(
           <Tab
-                label={subtitle}
-                value={idx.toString()}
-                key={idx}
-                {...a11yProps(idx)}
-              />
+            label={subtitle}
+            value={idx.toString()}
+            key={idx}
+            {...a11yProps(idx)}
+          />
         );
 
         //add content to active tab
         tabPanels.push(
           <TabPanel
-          value={idx.toString()}
-          index={this.props.subTabValue}
-          key={idx}
-          children={renderHTML(subcontent)}
+            value={idx.toString()}
+            index={this.props.subTabValue}
+            key={idx}
+            children={renderHTML(subcontent)}
           />
         );
-
       });
-      tabContent = 
+      tabContent = (
         <TabContext value={this.props.subTabValue.toString()}>
-          <TabList onChange={this.handleChangeSubTab}>
-            {subTabs}
-          </TabList>
+          <TabList onChange={this.handleChangeSubTab}>{subTabs}</TabList>
           {tabPanels}
         </TabContext>
+      );
     }
 
     return (
@@ -142,12 +152,21 @@ class TabSection extends React.Component {
           >
             {this.props.allTabs.map((titleId, idx) => {
               let obj = this.findObject(titleId);
-              return <Tab
-                label={obj.title}
-                key={idx}
-                {...a11yProps(idx)}
-                icon={<CancelIcon id={idx} color="primary" style={{ fontSize: 20 }} onClick={(e) => this.deleteTab(idx, e)}/>}
-              />
+              return (
+                <Tab
+                  label={obj.title}
+                  key={idx}
+                  {...a11yProps(idx)}
+                  icon={
+                    <CancelIcon
+                      id={idx}
+                      color="primary"
+                      style={{ fontSize: 20 }}
+                      onClick={(e) => this.deleteTab(idx, e)}
+                    />
+                  }
+                />
+              );
             })}
           </Tabs>
         </AppBar>
@@ -176,10 +195,10 @@ const mapDispatchToProps = (dispatch) => {
     intializeState: () => dispatch(intializeState()),
     switchTab: (prevIdx, newIdx) => dispatch(switchTab(prevIdx, newIdx)),
     setSubTabValue: (newIdx) => dispatch(setSubTabValue(newIdx)),
-  }
+  };
 };
 
 export default compose(
   withStyles(useStyles),
-  connect(mapStateToProps,mapDispatchToProps),
+  connect(mapStateToProps, mapDispatchToProps)
 )(TabSection);

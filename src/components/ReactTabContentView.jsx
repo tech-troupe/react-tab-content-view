@@ -10,37 +10,40 @@ const ReactTabContentView = (props) => {
   const themeOrange = createMuiTheme({
     palette: {
       primary: {
-          main: "#ff8f00"
+        main: "#ff8f00",
       },
       secondary: {
-        main: "#0047ff"
-      }
+        main: "#00e2ff",
+      },
     },
   });
-  const theme = props.theme == 'default'? null : themeOrange;
-  const { titleType, titleDelete, titleRefreshAll, searchResult} = props;
+  const theme = props.theme == "default" ? null : themeOrange;
+  const { titleType, titleDelete, titleRefreshAll, searchResult } = props;
 
   const transformedInput = processInput(props.src, props.titleType);
   return (
-    
-      <Provider store={store(transformedInput)}>
-        <ThemeProvider theme={theme}>
-          <div className="react-tab-content-view">
-            <TabContent titleType={titleType} searchResult={searchResult} titleDelete={titleDelete} titleRefreshAll={titleRefreshAll} />
-          </div>
-        </ThemeProvider>
-      </Provider>
-    
+    <Provider store={store(transformedInput)}>
+      <ThemeProvider theme={theme}>
+        <div className="react-tab-content-view">
+          <TabContent
+            titleType={titleType}
+            searchResult={searchResult}
+            titleDelete={titleDelete}
+            titleRefreshAll={titleRefreshAll}
+          />
+        </div>
+      </ThemeProvider>
+    </Provider>
   );
 };
 
 ReactTabContentView.propTypes = {
-  theme: PropTypes.oneOf(["default","orange"]),
+  theme: PropTypes.oneOf(["default", "orange"]),
   titleType: PropTypes.oneOf(["chips", "buttons", "checkboxes"]),
   titleDelete: PropTypes.bool,
   titleRefreshAll: PropTypes.bool,
   src: PropTypes.object.isRequired,
-  searchResult:PropTypes.array
+  searchResult: PropTypes.array,
 };
 
 export default ReactTabContentView;
