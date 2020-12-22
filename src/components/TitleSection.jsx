@@ -1,4 +1,5 @@
 import React from "react";
+import {bindActionCreators} from "redux";
 import { connect } from "react-redux";
 import compose from "recompose/compose";
 import Card from "@material-ui/core/Card";
@@ -8,7 +9,8 @@ import Chip from "@material-ui/core/Chip";
 import Badge from "@material-ui/core/Badge";
 import PropTypes from "prop-types";
 
-import { deleteTitle, intialize, clickTitle } from "../stores/UserActions.js";
+import { deleteTitle, intialize, clickTitle } from "../stores/UserActions";
+import {callbackWatcher} from "../middleware/CallbackActions";
 
 const useStyles = (theme) => ({
   root: {
@@ -37,7 +39,20 @@ const useStyles = (theme) => ({
 
 class TitleSection extends React.Component {
   handleClick = (id) => {
+<<<<<<< HEAD
+    if (!this.props.advancedMode){
+=======
+>>>>>>> 981caa0dfae4f21ce6ff2dc86f35842eba820937
     this.props.clickTitle(id);
+    }
+    else{
+      const clickedTitleObject = this.findObject(id);
+      if (!clickedTitleObject.content){
+        this.props.clickTitle(id);
+      } else{
+        this.props.callbackWatcher(callbackWatcher(id));
+      }
+    }
   };
 
   handleDelete = (id, e) => {
@@ -126,6 +141,10 @@ const mapStateToProps = (state) => {
     titleDelete: state.titleDelete,
     searchKeyword: state.searchKeyword,
     searchResult: state.searchResult,
+<<<<<<< HEAD
+    advancedMode: state.advancedMode
+=======
+>>>>>>> 981caa0dfae4f21ce6ff2dc86f35842eba820937
   };
 };
 
@@ -135,6 +154,14 @@ const mapDispatchToProps = (dispatch) => {
     deleteTitle: (id) => dispatch(deleteTitle(id)),
     intialize: () => dispatch(intialize()),
     clickTitle: (id) => dispatch(clickTitle(id)),
+    ...bindActionCreators(
+      {
+        callbackWatcher
+      },
+      dispatch
+    ),
+    
+    // callbackWatcher:(id) => dispatch(callbackWatcher(id))
   };
 };
 

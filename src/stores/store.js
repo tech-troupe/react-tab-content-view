@@ -1,8 +1,12 @@
-import { createStore, applyMiddleware } from "redux";
+import { createStore, applyMiddleware,compose } from "redux";
 import logger from "redux-logger";
-import userActionReducer from "./UserActionReducer";
+import createSagaMiddleware from "redux-saga";
+import rootReducer from "../Reducers"
+import rootSaga from "../middleware/CallbackSaga";
 
-const middlewares = [logger];
+const sagaMiddleware = createSagaMiddleware();
+
+const middlewares = [logger, sagaMiddleware];
 
 const store = (data) => {
   let initialState = {
@@ -16,12 +20,15 @@ const store = (data) => {
     currentSubTabValue: "0",
     mode: "search",
     searchResult: null,
+    advancedMode: false
   };
   return createStore(
-    userActionReducer,
+    rootReducer,
     initialState,
-    applyMiddleware(...middlewares)
+    compose(applyMiddleware(...middlewares))
   );
 };
+
+sagaMiddleware.run(rootSaga);
 
 export default store;
