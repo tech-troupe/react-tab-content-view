@@ -46,11 +46,8 @@ ReactTabContentView.propTypes = {
   titleRefreshAll: PropTypes.bool,
   src: PropTypes.object.isRequired,
   searchResult: PropTypes.array,
-<<<<<<< HEAD
   contentCallback: PropTypes.func,
   advancedMode: PropTypes.bool
-=======
->>>>>>> 981caa0dfae4f21ce6ff2dc86f35842eba820937
 };
 
 export default ReactTabContentView;
