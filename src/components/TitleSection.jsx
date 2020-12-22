@@ -39,7 +39,10 @@ const useStyles = (theme) => ({
 
 class TitleSection extends React.Component {
   handleClick = (id) => {
+<<<<<<< HEAD
     if (!this.props.advancedMode){
+=======
+>>>>>>> 981caa0dfae4f21ce6ff2dc86f35842eba820937
     this.props.clickTitle(id);
     }
     else{
@@ -138,7 +141,10 @@ const mapStateToProps = (state) => {
     titleDelete: state.titleDelete,
     searchKeyword: state.searchKeyword,
     searchResult: state.searchResult,
+<<<<<<< HEAD
     advancedMode: state.advancedMode
+=======
+>>>>>>> 981caa0dfae4f21ce6ff2dc86f35842eba820937
   };
 };
 
