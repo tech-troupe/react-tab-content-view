@@ -17,6 +17,7 @@ function* callbackWorker(action) {
 }
 
 function* callbackWatcherSaga() {
+  console.log("hits callbackWatcherSaga!")
   yield takeLatest(CallbackActionTypes.CALLBACK_WATCHER, callbackWorker);
 }
 

@@ -94,6 +94,7 @@ export const BasicTitlesWithoutContent = (args) => (
     {...args}
     searchResult={searchResult}
     src={withoutContent}
+    advancedMode={true}
   />
 );
 
@@ -102,6 +103,7 @@ export const BasicTitlesWithAPIContent = (args) => (
     {...args}
     searchResult={searchResult}
     src={withoutContent}
+    advancedMode={true}
     contentCallback = {getContent}
   />
 );

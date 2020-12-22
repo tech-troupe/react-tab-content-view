@@ -1,10 +1,9 @@
 import { CallbackActionTypes } from "./CallbackActionTypes";
 
-export const callbackWatcher = (contentCallback, title) => ({
+export const callbackWatcher = (titleId) => ({
   type: CallbackActionTypes.CALLBACK_WATCHER,
   payload: {
-    title: title,
-    contentCallback: contentCallback,
+    titleId: titleId,
   },
 });
 

@@ -18,7 +18,7 @@ const ReactTabContentView = (props) => {
     },
   });
   const theme = props.theme == "default" ? null : themeOrange;
-  const { titleType, titleDelete, titleRefreshAll, searchResult, contentCallback } = props;
+  const { titleType, titleDelete, titleRefreshAll, searchResult, contentCallback, advancedMode } = props;
 
   const transformedInput = processInput(props.src, props.titleType);
   return (
@@ -31,6 +31,7 @@ const ReactTabContentView = (props) => {
             titleDelete={titleDelete}
             titleRefreshAll={titleRefreshAll}
             contentCallback = {contentCallback}
+            advancedMode = {advancedMode}
           />
         </div>
       </ThemeProvider>
@@ -45,7 +46,8 @@ ReactTabContentView.propTypes = {
   titleRefreshAll: PropTypes.bool,
   src: PropTypes.object.isRequired,
   searchResult: PropTypes.array,
-  contentCallback: PropTypes.func
+  contentCallback: PropTypes.func,
+  advancedMode: PropTypes.bool
 };
 
 export default ReactTabContentView;

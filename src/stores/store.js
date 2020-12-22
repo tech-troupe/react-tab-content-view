@@ -1,4 +1,4 @@
-import { createStore, combineReducers, applyMiddleware } from "redux";
+import { createStore, applyMiddleware,compose } from "redux";
 import logger from "redux-logger";
 import createSagaMiddleware from "redux-saga";
 import rootReducer from "../Reducers"
@@ -20,11 +20,12 @@ const store = (data) => {
     currentSubTabValue: "0",
     mode: "search",
     searchResult: null,
+    advancedMode: false
   };
   return createStore(
     rootReducer,
     initialState,
-    applyMiddleware(...middlewares)
+    compose(applyMiddleware(...middlewares))
   );
 };
 
