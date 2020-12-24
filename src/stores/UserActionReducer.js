@@ -1,6 +1,23 @@
 import { UserActionTypes } from "./UserActionTypes";
 
-const userActionReducer = (state = [], action) => {
+const initialState = {
+  data: [],
+  displayedTitles: [],
+  allTabs: [],
+  titleDelete: true,
+  // Controls hide/display of refreshAll icon
+  titleRefreshAll: true,
+  sortTitlesInGroup: false,
+  groupVertical: true,
+  closedTitle: null,
+  currentSubTabValue: "0",
+  mode: "search",
+  searchResult: null,
+  advancedMode: false,
+  contentCallback: {},
+};
+
+const userActionReducer = (state = initialState, action) => {
   switch (action.type) {
     case UserActionTypes.INITIALIZE:
       //inbound state should be null
@@ -103,6 +120,7 @@ const userActionReducer = (state = [], action) => {
       }
       return {
         ...state,
+        ...action.payload.inputProps.data,
         titleRefreshAll:
           action.payload.inputProps.titleRefreshAll !== undefined
             ? action.payload.inputProps.titleRefreshAll
@@ -115,6 +133,14 @@ const userActionReducer = (state = [], action) => {
           action.payload.inputProps.searchResult !== undefined
             ? searchResultObj
             : {},
+        advancedMode:
+          action.payload.inputProps.advancedMode !== undefined
+            ? action.payload.inputProps.advancedMode
+            : false,
+        contentCallback:
+          action.payload.inputProps.contentCallback !== undefined
+            ? action.payload.inputProps.contentCallback
+            : {},
       };
 
     case UserActionTypes.SET_SUB_TAB_VALUE:
@@ -122,6 +148,38 @@ const userActionReducer = (state = [], action) => {
         ...state,
         currentSubTabValue: action.payload.currentSubTabValue,
       };
+
+    case UserActionTypes.UPDATE_CONTENT:
+      const { titleId, content } = action.payload;
+      let contentObj = {};
+      let isDefault = false;
+      let idx = null;
+      let title = "";
+      let filteredData = state.data.filter((obj, index) => {
+        if (obj.titleId === titleId) {
+          isDefault = obj.default;
+          idx = index;
+          title = obj.title;
+        }
+        return obj.titleId !== titleId;
+      });
+      contentObj["titleId"] = titleId;
+      contentObj["title"] = title;
+      contentObj["content"] = content;
+      if (isDefault) {
+        contentObj["default"] = isDefault;
+      }
+      filteredData.splice(idx, 0, contentObj);
+      return {
+        ...state,
+        data: filteredData,
+        activeTitle: titleId,
+        allTabs:
+          state.allTabs.indexOf(titleId) !== -1
+            ? [...state.allTabs]
+            : [...state.allTabs, titleId],
+      };
+
     default:
       return state;
   }

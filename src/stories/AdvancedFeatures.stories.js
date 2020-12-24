@@ -85,11 +85,11 @@ const getContent = (title) => {
 };
 
 export default {
-  title: "Test Case 2/AdvancedFeatures",
+  title: "React Tab Content View/AdvancedFeatures",
   component: ReactTabContentView,
 };
 
-export const BasicTitlesWithoutContent = (args) => (
+export const TitlesWithoutContent = (args) => (
   <ReactTabContentView
     {...args}
     searchResult={searchResult}
@@ -98,7 +98,7 @@ export const BasicTitlesWithoutContent = (args) => (
   />
 );
 
-export const BasicTitlesWithAPIContent = (args) => (
+export const TitlesWithAPIContent = (args) => (
   <ReactTabContentView
     {...args}
     searchResult={searchResult}

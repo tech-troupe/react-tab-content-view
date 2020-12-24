@@ -21,6 +21,10 @@ export const processInput = (src, titleType) => {
     processedData.displayedTitles.push(titleId);
     titleId++;
   });
+
+  if(!processedData.activeTitle) {
+    processedData.activeTitle = 0;
+  }
   return processedData;
 };
 

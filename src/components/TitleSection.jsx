@@ -1,5 +1,5 @@
 import React from "react";
-import {bindActionCreators} from "redux";
+import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import compose from "recompose/compose";
 import Card from "@material-ui/core/Card";
@@ -9,8 +9,12 @@ import Chip from "@material-ui/core/Chip";
 import Badge from "@material-ui/core/Badge";
 import PropTypes from "prop-types";
 
-import { deleteTitle, intialize, clickTitle } from "../stores/UserActions";
-import {callbackWatcher} from "../middleware/CallbackActions";
+import {
+  deleteTitle,
+  intialize,
+  clickTitle,
+  callbackWatcher,
+} from "../stores/UserActions";
 
 const useStyles = (theme) => ({
   root: {
@@ -39,18 +43,33 @@ const useStyles = (theme) => ({
 
 class TitleSection extends React.Component {
   handleClick = (id) => {
-    if (!this.props.advancedMode){
-    this.props.clickTitle(id);
+    if (!this.props.advancedMode) {
+      this.props.clickTitle(id);
+    } else {
+      this.checkAndLoadContent(id);
     }
-    else{
-      const clickedTitleObject = this.findObject(id);
-      if (!clickedTitleObject.content){
+  };
+
+  checkAndLoadContent = (id) => {
+    if (id) {
+      const activeTitleObject = this.findObject(id);
+      if (activeTitleObject.content) {
         this.props.clickTitle(id);
-      } else{
-        this.props.callbackWatcher(callbackWatcher(id));
+      } else {
+        this.props.callbackWatcherSaga(
+          id,
+          activeTitleObject.title,
+          this.props.callbackFn
+        );
       }
     }
   };
+
+  componentDidMount = () => {
+    setTimeout(() => {
+      this.checkAndLoadContent(this.props.activeTitle);
+    }, 500);
+  }
 
   handleDelete = (id, e) => {
     e.stopPropagation();
@@ -138,7 +157,8 @@ const mapStateToProps = (state) => {
     titleDelete: state.titleDelete,
     searchKeyword: state.searchKeyword,
     searchResult: state.searchResult,
-    advancedMode: state.advancedMode
+    advancedMode: state.advancedMode,
+    callbackFn: state.contentCallback,
   };
 };
 
@@ -148,25 +168,14 @@ const mapDispatchToProps = (dispatch) => {
     deleteTitle: (id) => dispatch(deleteTitle(id)),
     intialize: () => dispatch(intialize()),
     clickTitle: (id) => dispatch(clickTitle(id)),
-    ...bindActionCreators(
-      {
-        callbackWatcher
-      },
-      dispatch
-    ),
-    
-    // callbackWatcher:(id) => dispatch(callbackWatcher(id))
+    callbackWatcherSaga: (id, title, callbackFn) =>
+      dispatch(callbackWatcher(id, title, callbackFn)),
   };
 };
 
 TitleSection.propTypes = {
   classes: PropTypes.object.isRequired,
 };
-
-// export default connect(
-//   mapStateToProps,
-//   mapDispatchToProps
-// )(withStyles(useStyles)(TitleSection));
 
 export default compose(
   withStyles(useStyles),

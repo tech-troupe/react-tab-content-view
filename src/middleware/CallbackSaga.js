@@ -1,26 +1,21 @@
-import { updateContent } from "./CallbackActions";
-import { CallbackActionTypes } from "./CallbackActionTypes";
-import { takeLatest, call, put, all } from "redux-saga/effects";
+import { updateContent } from "../stores/UserActions";
+import { UserActionTypes } from "../stores/UserActionTypes";
+import { takeLatest, call, put } from "redux-saga/effects";
 
-function* callbackWorker(action) {
+export function* callbackWorker(action) {
   try {
     let content = yield call(
-      action.payload.contentCallback,
+      action.payload.callbackFn,
       action.payload.title
     );
-
-    // const content = action.payload.contentCallback(action.payload.title)
-    yield put(updateContent(content));
+    yield put(updateContent(action.payload.titleId, content));
   } catch (e) {
-    console.log("callBackWorker Failed!");
+    console.log("callBackWorker Failed!", e);
   }
 }
 
-function* callbackWatcherSaga() {
+export default function* callbackWatcherSaga() {
   console.log("hits callbackWatcherSaga!")
-  yield takeLatest(CallbackActionTypes.CALLBACK_WATCHER, callbackWorker);
-}
-
-export default function* rootSaga() {
-  yield all([callbackWatcherSaga()]);
+  yield takeLatest(UserActionTypes.CALLBACK_WATCHER, callbackWorker);
+  console.log("after hits callbackWatcherSaga!")
 }
