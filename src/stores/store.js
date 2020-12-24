@@ -1,21 +1,16 @@
-import { createStore, applyMiddleware } from "redux";
+import { createStore, applyMiddleware, compose } from "redux";
 import logger from "redux-logger";
+import createSagaMiddleware from "redux-saga";
 import userActionReducer from "./UserActionReducer";
+import callbackWatcherSaga from "../middleware/CallbackSaga";
+
+const sagaMiddleware = createSagaMiddleware();
 
 const middlewares = [logger];
 
-const store = (data) => {
-    let initialState = {
-        ...data,
-        titleDelete: true,
-        // Controls hide/display of refreshAll icon
-        titleRefreshAll: true,
-        sortTitlesInGroup: false,
-        groupVertical:true,
-        closedTitle : null,
-        currentSubTabValue:"0",
-    };
-    return createStore(userActionReducer, initialState, applyMiddleware(...middlewares));
-}
+export const store = createStore(
+    userActionReducer,
+  applyMiddleware(...middlewares, sagaMiddleware)
+);
 
-export default store;
+sagaMiddleware.run(callbackWatcherSaga);
