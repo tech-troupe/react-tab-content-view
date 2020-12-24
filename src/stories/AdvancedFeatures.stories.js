@@ -20,9 +20,6 @@ const withoutContent = {
       title: "French",
     },
     {
-      title: "Russian",
-    },
-    {
       title: "Chinese",
     },
     {
