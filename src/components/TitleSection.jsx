@@ -1,5 +1,4 @@
 import React from "react";
-import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import compose from "recompose/compose";
 import Card from "@material-ui/core/Card";

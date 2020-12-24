@@ -147,7 +147,6 @@ class TabSection extends React.Component {
       );
     }
 
-    console.log("tabsection loading state:", this.props.contentLoading);
     if (this.props.contentLoading) {
       tabContent = (
         <CustomizedProgressBars loadingTitle={this.props.titleLoading} />
