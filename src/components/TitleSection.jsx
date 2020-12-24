@@ -8,7 +8,12 @@ import Chip from "@material-ui/core/Chip";
 import Badge from "@material-ui/core/Badge";
 import PropTypes from "prop-types";
 
-import { deleteTitle, intialize, clickTitle } from "../stores/UserActions.js";
+import {
+  deleteTitle,
+  intialize,
+  clickTitle,
+  callbackWatcher,
+} from "../stores/UserActions";
 
 const useStyles = (theme) => ({
   root: {
@@ -37,7 +42,32 @@ const useStyles = (theme) => ({
 
 class TitleSection extends React.Component {
   handleClick = (id) => {
-    this.props.clickTitle(id);
+    if (!this.props.advancedMode) {
+      this.props.clickTitle(id);
+    } else {
+      this.checkAndLoadContent(id);
+    }
+  };
+
+  checkAndLoadContent = (id) => {
+    if (id) {
+      const activeTitleObject = this.findObject(id);
+      if (activeTitleObject.content) {
+        this.props.clickTitle(id);
+      } else {
+        this.props.callbackWatcherSaga(
+          id,
+          activeTitleObject.title,
+          this.props.callbackFn
+        );
+      }
+    }
+  };
+
+  componentDidMount = () => {
+    setTimeout(() => {
+      this.checkAndLoadContent(this.props.activeTitle);
+    }, 2000);
   };
 
   handleDelete = (id, e) => {
@@ -126,6 +156,9 @@ const mapStateToProps = (state) => {
     titleDelete: state.titleDelete,
     searchKeyword: state.searchKeyword,
     searchResult: state.searchResult,
+    advancedMode: state.advancedMode,
+    callbackFn: state.contentCallback,
+    contentLoading: state.contentLoading,
   };
 };
 
@@ -135,17 +168,14 @@ const mapDispatchToProps = (dispatch) => {
     deleteTitle: (id) => dispatch(deleteTitle(id)),
     intialize: () => dispatch(intialize()),
     clickTitle: (id) => dispatch(clickTitle(id)),
+    callbackWatcherSaga: (id, title, callbackFn) =>
+      dispatch(callbackWatcher(id, title, callbackFn)),
   };
 };
 
 TitleSection.propTypes = {
   classes: PropTypes.object.isRequired,
 };
-
-// export default connect(
-//   mapStateToProps,
-//   mapDispatchToProps
-// )(withStyles(useStyles)(TitleSection));
 
 export default compose(
   withStyles(useStyles),

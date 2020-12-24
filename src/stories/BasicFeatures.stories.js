@@ -100,7 +100,7 @@ const withSubTab = {
 };
 
 export default {
-  title: "Test Case 1/ReactTabContentView",
+  title: "React Tab Content View/BasicFeatures",
   component: ReactTabContentView,
 };
 

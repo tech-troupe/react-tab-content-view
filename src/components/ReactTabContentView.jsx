@@ -2,7 +2,7 @@ import React from "react";
 import { TabContent } from "./TabContent";
 import { processInput } from "./helper/InputProcessor";
 import { Provider } from "react-redux";
-import store from "../stores/store";
+import {store} from "../stores/store";
 import PropTypes from "prop-types";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
 
@@ -18,18 +18,21 @@ const ReactTabContentView = (props) => {
     },
   });
   const theme = props.theme == "default" ? null : themeOrange;
-  const { titleType, titleDelete, titleRefreshAll, searchResult } = props;
+  const { titleType, titleDelete, titleRefreshAll, searchResult, contentCallback, advancedMode } = props;
 
   const transformedInput = processInput(props.src, props.titleType);
   return (
-    <Provider store={store(transformedInput)}>
+    <Provider store={store}>
       <ThemeProvider theme={theme}>
         <div className="react-tab-content-view">
           <TabContent
+            data={transformedInput}
             titleType={titleType}
             searchResult={searchResult}
             titleDelete={titleDelete}
             titleRefreshAll={titleRefreshAll}
+            contentCallback = {contentCallback}
+            advancedMode = {advancedMode}
           />
         </div>
       </ThemeProvider>
@@ -44,6 +47,8 @@ ReactTabContentView.propTypes = {
   titleRefreshAll: PropTypes.bool,
   src: PropTypes.object.isRequired,
   searchResult: PropTypes.array,
+  contentCallback: PropTypes.func,
+  advancedMode: PropTypes.bool,
 };
 
 export default ReactTabContentView;

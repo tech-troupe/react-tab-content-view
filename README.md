@@ -44,10 +44,13 @@ npm test
 |----|----|-----|-------|------|
 |src|JSON object|None|This property contains your input JSON|Supported|
 |titleType| checkbox, button, chips|chips|Object type to display the titles|Only Chips is supported| 
-|titleDelete|true, false|true|Titles will have option to delete|Supported|
-|titleRefreshAll|true,false |true|Deleted titles can be restored with refresh option|Supported|
-|sortTitlesInGroup|true,false|false|Set to true to sort titles.|Not Supported|
-|groupControl|rows x cols|row default wrapped|Display titles in grid with rows and columns specified|Not Supported|
+|titleDelete|boolean|true|Titles will have option to delete|Supported|
+|titleRefreshAll|boolean|true|Deleted titles can be restored with refresh option|Supported|
+|sortTitlesInGroup|boolean|false|Set to true to sort titles.|Not Supported|
+|groupControl|string|row default wrapped|Display titles in grid with rows and columns specified|Not Supported|
+|searchResult|array|[]|Displays search results (matches) as badges based on the object fed| Supported
+|contentCallback|(title)=>{}|null| Loads content of each title on click (for the first time)| Not Supported
+|advancedMode|boolean|false|Enables lazy loading (loading content on the go using contentCallback)|Not Supported
 
 ### Additional Features
 

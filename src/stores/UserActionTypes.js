@@ -18,4 +18,8 @@ export const UserActionTypes = {
   SET_INPUT_PROPS: "SET_INPUT_PROPS",
   //Switch sub tabs
   SET_SUB_TAB_VALUE: "SET_SUB_TAB_VALUE",
+  //Watches for callback
+  CALLBACK_WATCHER: "CALLBACK_WATCHER",
+  UPDATE_CONTENT: "UPDATE_CONTENT",
+  SET_LOADING:"SET_LOADING",
 };

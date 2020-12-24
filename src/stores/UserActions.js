@@ -63,3 +63,27 @@ export const setSubTabValue = (newValue) => ({
     currentSubTabValue: newValue,
   },
 });
+
+export const callbackWatcher = (titleId, title, callbackFn) => ({
+  type: UserActionTypes.CALLBACK_WATCHER,
+  payload: {
+    titleId: titleId,
+    title: title,
+    callbackFn: callbackFn,
+  },
+});
+
+export const updateContent = (titleId, content) => ({
+  type: UserActionTypes.UPDATE_CONTENT,
+  payload: {
+    titleId: titleId,
+    content: content,
+  },
+});
+
+export const setLoading = (titleId) => ({
+  type: UserActionTypes.SET_LOADING,
+  payload: {
+    titleId: titleId,
+  },
+});
