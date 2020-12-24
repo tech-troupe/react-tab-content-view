@@ -6,6 +6,8 @@ const initialState = {
   allTabs: [],
   titleDelete: true,
   // Controls hide/display of refreshAll icon
+  contentLoading: false,
+  titleLoading: 0,
   titleRefreshAll: true,
   sortTitlesInGroup: false,
   groupVertical: true,
@@ -174,10 +176,22 @@ const userActionReducer = (state = initialState, action) => {
         ...state,
         data: filteredData,
         activeTitle: titleId,
+        contentLoading: false,
         allTabs:
           state.allTabs.indexOf(titleId) !== -1
             ? [...state.allTabs]
             : [...state.allTabs, titleId],
+      };
+
+    case UserActionTypes.SET_LOADING:
+      // Find relevant object and set titleLoading
+      console.log("actionPayload", action.payload);
+      const titleLoading = state.data[action.payload.titleId - 1].title;
+
+      return {
+        ...state,
+        contentLoading: true,
+        titleLoading: titleLoading,
       };
 
     default:

@@ -13,6 +13,7 @@ import Box from "@material-ui/core/Box";
 import renderHTML from "react-render-html";
 import compose from "recompose/compose";
 import { ReactComponent as RefreshIcon } from "../../src/assets/refresh.svg";
+import CustomizedProgressBars from "./Spinner";
 
 import {
   closeTab,
@@ -96,16 +97,22 @@ class TabSection extends React.Component {
         </div>
       );
     }
-
     let content = this.findObject(this.props.activeTab).content;
 
     if (content === undefined) {
-      return <div></div>;
+      if (this.props.contentLoading) {
+        return (
+          <CustomizedProgressBars loadingTitle={this.props.titleLoading} />
+        );
+      } else {
+        return <div></div>;
+      }
     }
 
     let hasSubTab = typeof content === "string" ? false : true;
 
     let tabContent = "";
+
     if (!hasSubTab) {
       tabContent = renderHTML(content);
     } else {
@@ -137,6 +144,13 @@ class TabSection extends React.Component {
           <TabList onChange={this.handleChangeSubTab}>{subTabs}</TabList>
           {tabPanels}
         </TabContext>
+      );
+    }
+
+    console.log("tabsection loading state:", this.props.contentLoading);
+    if (this.props.contentLoading) {
+      tabContent = (
+        <CustomizedProgressBars loadingTitle={this.props.titleLoading} />
       );
     }
 
@@ -185,6 +199,8 @@ const mapStateToProps = (state) => {
     activeTabIndex: state.allTabs.indexOf(state.activeTitle),
     data: state.data,
     subTabValue: state.currentSubTabValue,
+    contentLoading: state.contentLoading,
+    titleLoading: state.titleLoading,
   };
 };
 

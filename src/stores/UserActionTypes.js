@@ -21,4 +21,5 @@ export const UserActionTypes = {
   //Watches for callback
   CALLBACK_WATCHER: "CALLBACK_WATCHER",
   UPDATE_CONTENT: "UPDATE_CONTENT",
+  SET_LOADING:"SET_LOADING",
 };

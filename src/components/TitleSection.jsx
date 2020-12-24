@@ -68,8 +68,8 @@ class TitleSection extends React.Component {
   componentDidMount = () => {
     setTimeout(() => {
       this.checkAndLoadContent(this.props.activeTitle);
-    }, 500);
-  }
+    }, 2000);
+  };
 
   handleDelete = (id, e) => {
     e.stopPropagation();
@@ -159,6 +159,7 @@ const mapStateToProps = (state) => {
     searchResult: state.searchResult,
     advancedMode: state.advancedMode,
     callbackFn: state.contentCallback,
+    contentLoading: state.contentLoading,
   };
 };
 
