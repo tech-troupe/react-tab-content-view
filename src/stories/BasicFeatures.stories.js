@@ -215,38 +215,38 @@ const externalDisplayComp = {
     },
     {
       title: "French",
-      content:
-      {
-        "topic": {
-          "topic1": "À quand remonte la dernière fois que nous avons fait quelque chose pour la première fois?",
-          "topic2": "Voici le premier de tout ce que nous avons fait ces derniers jours !!"
+      content: {
+        topic: {
+          topic1:
+            "À quand remonte la dernière fois que nous avons fait quelque chose pour la première fois?",
+          topic2:
+            "Voici le premier de tout ce que nous avons fait ces derniers jours !!",
         },
-        "description": [
+        description: [
           "Première fois FOSSATHON",
           "Première tentative de création d'une application d'interface utilisateur",
           "Première fois d'écrire du code dans REACT",
           "Première tentative de redonner à la communauté open source.",
-          "La première fois à travailler jour et nuit, en essayant d'apprendre et de mettre en œuvre en quelques jours seulement"
-        ]
+          "La première fois à travailler jour et nuit, en essayant d'apprendre et de mettre en œuvre en quelques jours seulement",
+        ],
       },
     },
     {
       title: "Latin",
-      content:
-      {
-        "topic": {
-        "topic1": "Ubi ultimum tempus est quaedam res fecit ut primum?",
-        "topic2": "Primum omnium in paucis diebus nos !!"
+      content: {
+        topic: {
+          topic1: "Ubi ultimum tempus est quaedam res fecit ut primum?",
+          topic2: "Primum omnium in paucis diebus nos !!",
         },
-        "description": [
-        "Primo tempore FOSSATHON",
-        "Primo tempore conatur facere in III application.",
-        "Prius discere ad agere.",
-        "STO in codice prius temporis scribere.",
-        "Dare conantur, prius ad fontem aperta est civitas.",
-        "Prius tempore working die ac nocte, ut conatur discere, et a modo per effectum deducendi duobus diebus."
-        ]
-        },
+        description: [
+          "Primo tempore FOSSATHON",
+          "Primo tempore conatur facere in III application.",
+          "Prius discere ad agere.",
+          "STO in codice prius temporis scribere.",
+          "Dare conantur, prius ad fontem aperta est civitas.",
+          "Prius tempore working die ac nocte, ut conatur discere, et a modo per effectum deducendi duobus diebus.",
+        ],
+      },
     },
   ],
 };
@@ -265,5 +265,9 @@ export const BasicTitlesWithSubTab = (args) => (
 );
 
 export const ContentWithExternalViewerToDisplay = (args) => (
-  <ReactTabContentView {...args} src={noSubTab} contentDisplayComponent={ReactJson} />
+  <ReactTabContentView
+    {...args}
+    src={externalDisplayComp}
+    contentDisplayComponent={ReactJson}
+  />
 );

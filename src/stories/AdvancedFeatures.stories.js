@@ -1,7 +1,34 @@
 import React from "react";
 import ReactTabContentView from "../components/ReactTabContentView";
 
-const withoutContent = {
+const withoutContentNoDefault = {
+  data: [
+    {
+      title: "English",
+    },
+    {
+      title: "Tamil",
+      default: false,
+    },
+    {
+      title: "Russian",
+    },
+    {
+      title: "Spanish",
+    },
+    {
+      title: "French",
+    },
+    {
+      title: "Chinese",
+    },
+    {
+      title: "Latin",
+    },
+  ],
+};
+
+const withoutContentWithDefault = {
   data: [
     {
       title: "English",
@@ -58,7 +85,7 @@ const searchResult = [
 const getContentWithDelay = (title) => {
   const contentPromise = new Promise((resolve, reject) => {
     setTimeout(() => {
-      console.log("5 sec delay");
+      console.log("3 sec delay");
       let content = "";
       switch (title) {
         case "English":
@@ -82,7 +109,7 @@ const getContentWithDelay = (title) => {
           break;
       }
       return resolve(content);
-    }, 5000);
+    }, 3000);
   });
   return contentPromise;
 };
@@ -128,16 +155,16 @@ export const TitlesWithoutContent = (args) => (
   <ReactTabContentView
     {...args}
     searchResult={searchResult}
-    src={withoutContent}
+    src={withoutContentNoDefault}
     advancedMode={true}
   />
 );
 
-export const TitlesWithAPIContentWith5SecDelay = (args) => (
+export const TitlesWithAPIContentWith3SecDelay = (args) => (
   <ReactTabContentView
     {...args}
     searchResult={searchResult}
-    src={withoutContent}
+    src={withoutContentWithDefault}
     advancedMode={true}
     contentCallback={getContentWithDelay}
   />
@@ -147,7 +174,7 @@ export const TitlesWithAPIContentWithoutDelay = (args) => (
   <ReactTabContentView
     {...args}
     searchResult={searchResult}
-    src={withoutContent}
+    src={withoutContentWithDefault}
     advancedMode={true}
     contentCallback={getContentWithoutDelay}
   />

@@ -1,7 +1,7 @@
 export const processInput = (src, titleType) => {
   const validation_result = validateInputs(src, titleType);
   if (validation_result) {
-    return validation_result;
+    return [validation_result];
   }
 
   let titleId = 1;
@@ -24,8 +24,9 @@ export const processInput = (src, titleType) => {
 
   if(!processedData.activeTitle) {
     processedData.activeTitle = 0;
+    processedData.defaultTitle = 0;
   }
-  return processedData;
+  return [processedData, processedData.defaultTitle] ;
 };
 
 export const validateInputs = (src, titleType) => {
