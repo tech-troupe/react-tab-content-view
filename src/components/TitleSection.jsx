@@ -65,9 +65,12 @@ class TitleSection extends React.Component {
   };
 
   componentDidMount = () => {
-    setTimeout(() => {
-      this.checkAndLoadContent(this.props.activeTitle);
-    }, 2000);
+    if (this.props.defaultTitle) {
+      // Below timeout to be eventually removed
+      setTimeout(() => {
+        this.checkAndLoadContent(this.props.defaultTitle);
+      }, 0);
+    }
   };
 
   handleDelete = (id, e) => {

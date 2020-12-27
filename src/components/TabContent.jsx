@@ -67,7 +67,7 @@ export const TabContent = (props) => {
     <div className="tab-content-container">
       {refreshIcon}
       <Card className="title-container">
-        <TitleSection />
+        <TitleSection defaultTitle={props.defaultTitle} />
       </Card>
       <Card className="tab-container">
         <TabSection />

@@ -2,7 +2,7 @@ import { createStore, applyMiddleware, compose } from "redux";
 import logger from "redux-logger";
 import createSagaMiddleware from "redux-saga";
 import userActionReducer from "./UserActionReducer";
-import callbackWatcherSaga from "../middleware/CallbackSaga";
+import rootSaga from "../middleware/CallbackSaga";
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -13,4 +13,4 @@ export const store = createStore(
   applyMiddleware(...middlewares, sagaMiddleware)
 );
 
-sagaMiddleware.run(callbackWatcherSaga);
+sagaMiddleware.run(rootSaga);
