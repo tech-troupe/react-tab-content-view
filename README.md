@@ -40,17 +40,20 @@ npm test
 ```
 
 ### Supported Props
-|Name|Type|default|Description|Implementation Status|
-|----|----|-----|-------|------|
-|src|JSON object|None|This property contains your input JSON|Supported|
-|titleType| checkbox, button, chips|chips|Object type to display the titles|Only Chips is supported| 
-|titleDelete|boolean|true|Titles will have option to delete|Supported|
-|titleRefreshAll|boolean|true|Deleted titles can be restored with refresh option|Supported|
-|sortTitlesInGroup|boolean|false|Set to true to sort titles.|Not Supported|
-|groupControl|string|row default wrapped|Display titles in grid with rows and columns specified|Not Supported|
-|searchResult|array|[]|Displays search results (matches) as badges based on the object fed| Supported
-|contentCallback|(title)=>{}|null| Loads content of each title on click (for the first time)| Not Supported
-|advancedMode|boolean|false|Enables lazy loading (loading content on the go using contentCallback)|Not Supported
+||Name|Type|default|Description|Implementation Status|
+|-----|----|----|-----|-------|------|
+|1.|src|JSON object|None|This property contains your input JSON|Supported|
+|2.|titleType| checkbox, button, chips|chips|Object type to display the titles|Only 'chips' is supported| 
+|3.|titleDelete|boolean|true|Titles will have option to delete|Supported|
+|4.|titleRefreshAll|boolean|true|Deleted titles can be restored with refresh option|Supported|
+|5.|sortTitlesInGroup|boolean|false|Set to true to sort titles.|Not Supported|
+|6.|groupControl|string|row default wrapped|Display titles in grid with rows and columns specified|Not Supported|
+|7.|searchResult|array|[]|Displays search results (matches) as badges based on the object fed| Supported|
+|8.|contentCallback|(title)=>{}|null| Callback function that loads content of each title upon click (for the first time only)| Supported|
+|9.|contentDisplayComponent|React component object|null|External react component to be used to display the content|Supported|
+|10.|contentDisplayAttributes|array| []| Attrbutes to be used to instantiate the contentDisplayComponent| Supported|
+|11.|advancedMode|boolean|false|Enables lazy loading (loading content on the go using contentCallback)|Supported|
+|
 
 ### Additional Features
 

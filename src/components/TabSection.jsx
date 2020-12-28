@@ -116,7 +116,12 @@ class TabSection extends React.Component {
     if (!hasSubTab) {
       if (typeof content === "object") {
         const ContentDisplayComponent = this.props.contentDisplayComponent;
-        tabContent = <ContentDisplayComponent src={content} />;
+        tabContent = (
+          <ContentDisplayComponent
+            src={content}
+            {...this.props.contentDisplayAttributes}
+          />
+        );
       } else {
         tabContent = renderHTML(content);
       }
@@ -207,7 +212,9 @@ class TabSection extends React.Component {
             {loadingTab}
           </Tabs>
         </AppBar>
-        {tabContent}
+        <Box p={1}>
+          {tabContent}
+        </Box>
       </div>
     );
   }
@@ -225,6 +232,7 @@ const mapStateToProps = (state) => {
     contentLoading: state.contentLoading,
     titleLoading: state.titleLoading,
     contentDisplayComponent: state.contentDisplayComponent,
+    contentDisplayAttributes: state.contentDisplayAttributes,
   };
 };
 
