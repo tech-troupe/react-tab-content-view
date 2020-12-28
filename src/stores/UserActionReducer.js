@@ -18,6 +18,7 @@ const initialState = {
   advancedMode: false,
   contentCallback: {},
   contentDisplayComponent: null,
+  contentDisplayAttributes: null,
   loadCancelled: false,
   loadTimedout: false,
 };
@@ -78,7 +79,7 @@ const userActionReducer = (state = initialState, action) => {
         activeTitle: action.payload.id,
         allTabs: newAllTabs,
         loadCancelled: false,
-        loadTimedout: false
+        loadTimedout: false,
       };
 
     case UserActionTypes.DELETE_TITLE:
@@ -98,9 +99,9 @@ const userActionReducer = (state = initialState, action) => {
             state.activeTitle = state.allTabs[idxOfDeletedTab - 1];
           }
         } else {
-            if(newDisplayTitles.length > 0) {
-                state.activeTitle = 0;
-            }
+          if (newDisplayTitles.length > 0) {
+            state.activeTitle = 0;
+          }
         }
       }
       return {
@@ -115,7 +116,7 @@ const userActionReducer = (state = initialState, action) => {
         ...state,
         displayedTitles: state.allTitles,
         activeTitle: state.defaultTitle,
-        allTabs: state.defaultTitle !== 0 ?[state.defaultTitle]:[],
+        allTabs: state.defaultTitle !== 0 ? [state.defaultTitle] : [],
       };
 
     case UserActionTypes.SET_INPUT_PROPS:
@@ -155,6 +156,10 @@ const userActionReducer = (state = initialState, action) => {
         contentDisplayComponent:
           action.payload.inputProps.contentDisplayComponent !== undefined
             ? action.payload.inputProps.contentDisplayComponent
+            : null,
+        contentDisplayAttributes:
+          action.payload.inputProps.contentDisplayAttributes !== undefined
+            ? action.payload.inputProps.contentDisplayAttributes
             : null,
       };
 
@@ -208,27 +213,27 @@ const userActionReducer = (state = initialState, action) => {
       };
 
     case UserActionTypes.CANCEL_LOADING:
-        console.log("UserActionTypes.CANCEL_LOADING");
-        return {
-            ...state,
-            loadCancelled: true,
-        };
+      console.log("UserActionTypes.CANCEL_LOADING");
+      return {
+        ...state,
+        loadCancelled: true,
+      };
 
     case UserActionTypes.RESET_LOADING:
-        console.log("UserActionTypes.RESET_LOADING");
-        return {
-            ...state,
-            contentLoading: false,
-            titleLoading:""
-        };
+      console.log("UserActionTypes.RESET_LOADING");
+      return {
+        ...state,
+        contentLoading: false,
+        titleLoading: "",
+      };
 
     case UserActionTypes.LOAD_TIMED_OUT:
-        console.log("UserActionTypes.LOAD_TIMED_OUT");
-        return {
-            ...state,
-            loadTimedout: true,
-        };
-        
+      console.log("UserActionTypes.LOAD_TIMED_OUT");
+      return {
+        ...state,
+        loadTimedout: true,
+      };
+
     default:
       return state;
   }

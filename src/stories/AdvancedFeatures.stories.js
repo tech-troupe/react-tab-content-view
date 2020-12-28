@@ -1,32 +1,6 @@
 import React from "react";
+import PropTypes from "prop-types";
 import ReactTabContentView from "../components/ReactTabContentView";
-
-const withoutContentNoDefault = {
-  data: [
-    {
-      title: "English",
-    },
-    {
-      title: "Tamil",
-      default: false,
-    },
-    {
-      title: "Russian",
-    },
-    {
-      title: "Spanish",
-    },
-    {
-      title: "French",
-    },
-    {
-      title: "Chinese",
-    },
-    {
-      title: "Latin",
-    },
-  ],
-};
 
 const withoutContentWithDefault = {
   data: [
@@ -54,33 +28,6 @@ const withoutContentWithDefault = {
     },
   ],
 };
-
-const searchResult = [
-  {
-    title: "Tamil",
-    count: 2,
-  },
-  {
-    title: "Spanish",
-    count: 3,
-  },
-  {
-    title: "Russian",
-    count: 9,
-  },
-  {
-    title: "Hindi",
-    count: 7,
-  },
-  {
-    title: "Chinese",
-    count: 11,
-  },
-  {
-    title: "French",
-    count: 4,
-  },
-];
 
 const getContentWithDelay = (title) => {
   const contentPromise = new Promise((resolve, reject) => {
@@ -147,35 +94,131 @@ const getContentWithoutDelay = (title) => {
 };
 
 export default {
-  title: "React Tab Content View/AdvancedFeatures",
+  title: "React Tab Content View/Dynamic Content Load",
   component: ReactTabContentView,
+  argTypes: {
+    src: {
+      description:
+        "This is input JSON data with titles (and no content) that you want to render using this component",
+      table: {
+        type: {
+          summary:
+            "Pass the title to be dispayed. Do not pass any content here.",
+          detail:
+            "With 'advancedMode' set as 'true', component will load the content using the callback function provided, for the" +
+            " first time. Content will be cached after first load and it will be subsequently used.",
+        },
+      },
+    },
+    titleDelete: {
+      description:
+        "Allows you to delete a title from view. Set it to 'false' if you don't want to provide this option.",
+      table: {
+        type: {
+          summary:
+            "You can remove a title from view by clicking the X mark on the title.",
+          detail:
+            "This option is to provide flexibility to users avoiding clutter by removing unwanted titles from view. Deleting the" +
+            " title will remove it just from the current view and it will not delete the 'src' data.",
+        },
+        defaultValue: {
+          summary: "true",
+          detail: "Set it to false to turn it off.",
+        },
+      },
+    },
+    titleRefreshAll: {
+      description:
+        "Allows you to refresh and bring back the deleted titles. You can turn it off if 'titleDelete' above is set to 'false'.",
+      table: {
+        type: {
+          summary: "Restores the deleted titles.",
+          detail:
+            "Shows refresh button icon on the top right corner of the title section for users to restore the view to initial state",
+        },
+        defaultValue: {
+          summary: "default value is 'true'.",
+          detail:
+            "Set it to 'false' if you are not providing delete option using 'titleDelete'.",
+        },
+      },
+    },
+    advancedMode: {
+      description:
+        "Indicates that the content to be loaded dynamically using the callback provided.",
+      table: {
+        type: {
+          summary: "Enables advanced lazy loading of content upon user click.",
+          detail:
+            "Do not set this attribute to true when you have the content to render upfront.",
+        },
+        defaultValue: {
+          summary: "false",
+          detail:
+            "Setting to true mandates a callback function to be passed in 'contentCallback' attribute.",
+        },
+      },
+    },
+    contentCallback: {
+      description:
+        "Callback function that accepts a title and returns a Promise.",
+      table: {
+        type: {
+          summary:
+            "Callback function that loads the content for the title passed.",
+          detail:
+            "Callback function should accept the title passed and return a Promise as response. By default, component " +
+            " has a timeout of 10secs before aborting the content load. Users can cancel the load content by using the " +
+            " controls provided.It should handle all titles gracefully.",
+        },
+        defaultValue: {
+          summary: "Callback",
+          detail: "Mandatory attribute if advanceMode is set as true.",
+        },
+      },
+    },
+  },
 };
 
-export const TitlesWithoutContent = (args) => (
+export const With3SecDelay = (args) => (
   <ReactTabContentView
     {...args}
-    searchResult={searchResult}
-    src={withoutContentNoDefault}
-    advancedMode={true}
-  />
-);
-
-export const TitlesWithAPIContentWith3SecDelay = (args) => (
-  <ReactTabContentView
-    {...args}
-    searchResult={searchResult}
     src={withoutContentWithDefault}
     advancedMode={true}
     contentCallback={getContentWithDelay}
   />
 );
 
-export const TitlesWithAPIContentWithoutDelay = (args) => (
+export const WithoutDelay = (args) => (
   <ReactTabContentView
     {...args}
-    searchResult={searchResult}
     src={withoutContentWithDefault}
     advancedMode={true}
     contentCallback={getContentWithoutDelay}
   />
 );
+
+With3SecDelay.args = {
+  src: withoutContentWithDefault,
+  titleDelete: true,
+  titleRefreshAll: true,
+  contentCallback: getContentWithDelay,
+  advancedMode: true,
+};
+
+WithoutDelay.args = {
+  src: withoutContentWithDefault,
+  titleDelete: true,
+  titleRefreshAll: true,
+  contentCallback: getContentWithoutDelay,
+  advancedMode: true,
+};
+
+ReactTabContentView.propTypes = {
+  theme: PropTypes.oneOf(["default", "orange"]),
+  titleDelete: PropTypes.bool,
+  titleRefreshAll: PropTypes.bool,
+  src: PropTypes.object.isRequired,
+  contentCallback: PropTypes.func,
+  advancedMode: PropTypes.bool,
+};
