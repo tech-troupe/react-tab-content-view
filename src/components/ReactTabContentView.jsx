@@ -2,37 +2,42 @@ import React from "react";
 import { TabContent } from "./TabContent";
 import { processInput } from "./helper/InputProcessor";
 import { Provider } from "react-redux";
-import {store} from "../stores/store";
+import { store } from "../stores/store";
 import PropTypes from "prop-types";
-import { createMuiTheme, ThemeProvider } from "@material-ui/core";
+import { ThemeProvider } from "@material-ui/core";
 
 const ReactTabContentView = (props) => {
-  const themeOrange = createMuiTheme({
-    palette: {
-      primary: {
-        main: "#ff8f00",
-      },
-      secondary: {
-        main: "#00e2ff",
-      },
-    },
-  });
-  const theme = props.theme == "default" ? null : themeOrange;
-  const { titleType, titleDelete, titleRefreshAll, searchResult, contentCallback, advancedMode } = props;
+  const {
+    theme,
+    titleType,
+    titleDelete,
+    titleRefreshAll,
+    searchResult,
+    contentCallback,
+    advancedMode,
+    contentDisplayComponent,
+    contentDisplayAttributes,
+  } = props;
 
-  const transformedInput = processInput(props.src, props.titleType);
+  const [transformedInput, defaultTitle] = processInput(
+    props.src,
+    props.titleType
+  );
   return (
     <Provider store={store}>
       <ThemeProvider theme={theme}>
         <div className="react-tab-content-view">
           <TabContent
             data={transformedInput}
+            defaultTitle={defaultTitle}
             titleType={titleType}
             searchResult={searchResult}
             titleDelete={titleDelete}
             titleRefreshAll={titleRefreshAll}
-            contentCallback = {contentCallback}
-            advancedMode = {advancedMode}
+            contentCallback={contentCallback}
+            advancedMode={advancedMode}
+            contentDisplayComponent={contentDisplayComponent}
+            contentDisplayAttributes={contentDisplayAttributes}
           />
         </div>
       </ThemeProvider>
@@ -49,6 +54,8 @@ ReactTabContentView.propTypes = {
   searchResult: PropTypes.array,
   contentCallback: PropTypes.func,
   advancedMode: PropTypes.bool,
+  contentDisplayComponent: PropTypes.object,
+  contentDisplayAttributes: PropTypes.array,
 };
 
 export default ReactTabContentView;

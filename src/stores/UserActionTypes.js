@@ -21,5 +21,10 @@ export const UserActionTypes = {
   //Watches for callback
   CALLBACK_WATCHER: "CALLBACK_WATCHER",
   UPDATE_CONTENT: "UPDATE_CONTENT",
+  // Set when loading of content starts
   SET_LOADING:"SET_LOADING",
+  // Cancel loading to middleware
+  CANCEL_LOADING:"CANCEL_LOADING",
+  // Reset loading flag in state
+  RESET_LOADING: "RESET_LOADING",
 };

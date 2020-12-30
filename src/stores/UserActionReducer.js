@@ -7,7 +7,7 @@ const initialState = {
   titleDelete: true,
   // Controls hide/display of refreshAll icon
   contentLoading: false,
-  titleLoading: 0,
+  titleLoading: "",
   titleRefreshAll: true,
   sortTitlesInGroup: false,
   groupVertical: true,
@@ -17,6 +17,10 @@ const initialState = {
   searchResult: null,
   advancedMode: false,
   contentCallback: {},
+  contentDisplayComponent: null,
+  contentDisplayAttributes: null,
+  loadCancelled: false,
+  loadTimedout: false,
 };
 
 const userActionReducer = (state = initialState, action) => {
@@ -74,6 +78,8 @@ const userActionReducer = (state = initialState, action) => {
         ...state,
         activeTitle: action.payload.id,
         allTabs: newAllTabs,
+        loadCancelled: false,
+        loadTimedout: false,
       };
 
     case UserActionTypes.DELETE_TITLE:
@@ -92,6 +98,10 @@ const userActionReducer = (state = initialState, action) => {
           } else {
             state.activeTitle = state.allTabs[idxOfDeletedTab - 1];
           }
+        } else {
+          if (newDisplayTitles.length > 0) {
+            state.activeTitle = 0;
+          }
         }
       }
       return {
@@ -106,7 +116,7 @@ const userActionReducer = (state = initialState, action) => {
         ...state,
         displayedTitles: state.allTitles,
         activeTitle: state.defaultTitle,
-        allTabs: [state.defaultTitle],
+        allTabs: state.defaultTitle !== 0 ? [state.defaultTitle] : [],
       };
 
     case UserActionTypes.SET_INPUT_PROPS:
@@ -143,6 +153,14 @@ const userActionReducer = (state = initialState, action) => {
           action.payload.inputProps.contentCallback !== undefined
             ? action.payload.inputProps.contentCallback
             : {},
+        contentDisplayComponent:
+          action.payload.inputProps.contentDisplayComponent !== undefined
+            ? action.payload.inputProps.contentDisplayComponent
+            : null,
+        contentDisplayAttributes:
+          action.payload.inputProps.contentDisplayAttributes !== undefined
+            ? action.payload.inputProps.contentDisplayAttributes
+            : null,
       };
 
     case UserActionTypes.SET_SUB_TAB_VALUE:
@@ -177,6 +195,7 @@ const userActionReducer = (state = initialState, action) => {
         data: filteredData,
         activeTitle: titleId,
         contentLoading: false,
+        titleLoading: "",
         allTabs:
           state.allTabs.indexOf(titleId) !== -1
             ? [...state.allTabs]
@@ -184,14 +203,35 @@ const userActionReducer = (state = initialState, action) => {
       };
 
     case UserActionTypes.SET_LOADING:
-      // Find relevant object and set titleLoading
-      console.log("actionPayload", action.payload);
+      console.log("UserActionTypes.SET_LOADING", action.payload);
       const titleLoading = state.data[action.payload.titleId - 1].title;
 
       return {
         ...state,
         contentLoading: true,
         titleLoading: titleLoading,
+      };
+
+    case UserActionTypes.CANCEL_LOADING:
+      console.log("UserActionTypes.CANCEL_LOADING");
+      return {
+        ...state,
+        loadCancelled: true,
+      };
+
+    case UserActionTypes.RESET_LOADING:
+      console.log("UserActionTypes.RESET_LOADING");
+      return {
+        ...state,
+        contentLoading: false,
+        titleLoading: "",
+      };
+
+    case UserActionTypes.LOAD_TIMED_OUT:
+      console.log("UserActionTypes.LOAD_TIMED_OUT");
+      return {
+        ...state,
+        loadTimedout: true,
       };
 
     default:

@@ -1,9 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { createMuiTheme } from "@material-ui/core";
 import ReactTabContentView from "../components/ReactTabContentView";
 
-const noSubTab = {
+const withoutContentNoDefault = {
   data: [
     {
       title: "English",
@@ -50,71 +49,35 @@ const noSubTab = {
   ],
 };
 
-const withSubTab = {
-  data: [
-    {
-      title: "English",
-      content: [
-        {
-          subtitle: "Synopsis",
-          subcontent:
-            "<b>When was the last time we did some thing for the first time?</b> <br/> Here is the first of everything we did in the last few days!! <br />",
-        },
-        {
-          subtitle: "Description",
-          subcontent:
-            "<ul><li>First time FOSSATHON</li><li>First time trying to build a UI application.</li><li>First time to learn REACT.</li><li>First time to write code in REACT.</li><li>First attempt to give back to the open source community.</li><li>First time working tirelessly, trying to learn and implement in just a couple of days.</li></ul><br />",
-        },
-      ],
-      default: true,
-    },
-    {
-      title: "Tamil",
-      content: [
-        {
-          subtitle: "Synopsis",
-          subcontent:
-            "<b>கடைசியாக எப்போது நாங்கள் முதல் முறையாக ஏதாவது செய்தோம்?</b><br />கடந்த சில நாட்களில் நாங்கள் செய்த எல்லாவற்றிலும் இதுதான் முதல் !!<br><ul><li>முதல் முறையாக FOSSATHON</li>",
-        },
-        {
-          subtitle: "Description",
-          subcontent:
-            "<li>முதல் முறையாக UI பயன்பாட்டை உருவாக்க முயற்சிக்கிறது.</li><li>முதல் முறையாக REACT கற்க.</li><li>REACT இல் குறியீட்டை எழுத முதல் முறை.</li><li>திறந்த மூல சமூகத்திற்கு திருப்பித் தர முதல் முயற்சி.</li><li>முதல் முறையாக இரவு பகலாக வேலை செய்வது, ஓரிரு நாட்களில் கற்றுக் கொண்டு செயல்படுத்த முயற்சிக்கிறது.</li></ul><br />",
-        },
-      ],
-    },
-    {
-      title: "Russian",
-      content: [
-        {
-          subtitle: "Synopsis",
-          subcontent:
-            "<b>Когда мы в последний раз делали что-то в первый раз?</b><br />Вот первое из всего, что мы сделали за последние несколько дней !!<br />",
-        },
-        {
-          subtitle: "Description",
-          subcontent:
-            "<ul><li>Впервые ФОССАТОН</li><li>Первая попытка создания UI-приложения.</li><li>Впервые изучаю РЕАКТ.</li><li>Впервые пишу код в REACT.</li><li>Первая попытка отдать должное сообществу открытого исходного кода.</li><li>Работаю впервые днем ​​и ночью, пытаюсь выучить и внедрить буквально за пару дней.</li></ul>",
-        },
-      ],
-    },
-  ],
-};
-
-const themeOrange = createMuiTheme({
-  palette: {
-    primary: {
-      main: "#ff8f00",
-    },
-    secondary: {
-      main: "#00e2ff",
-    },
+const searchResult = [
+  {
+    title: "Tamil",
+    count: 2,
   },
-});
+  {
+    title: "Spanish",
+    count: 3,
+  },
+  {
+    title: "Russian",
+    count: 9,
+  },
+  {
+    title: "Hindi",
+    count: 7,
+  },
+  {
+    title: "Chinese",
+    count: 11,
+  },
+  {
+    title: "French",
+    count: 4,
+  },
+];
 
 export default {
-  title:
-    "React Tab Content View/Pre-loaded Content Display/Using Native Display",
+  title: "React Tab Content View/Search Result Feed",
   component: ReactTabContentView,
   argTypes: {
     src: {
@@ -125,10 +88,7 @@ export default {
           summary:
             "Core data object should be of array type with 'title' and 'content' to be displayed.",
           detail:
-            "Data should be a JSON array object with each object having a 'title' and a 'content' field. You can specify" +
-            " a 'default' attribute to only one of the object in the entire array. Content of 'default' object will be " +
-            "displayed by default upon rendering the component for the first time. Content can be in plain text or with " +
-            "markdown. This data is immutable for the component.",
+            "Content should be compatible with the display component 'contentDisplayComponent'.",
         },
       },
     },
@@ -165,29 +125,32 @@ export default {
         },
       },
     },
+    searchResult: {
+      description:
+        "Search result count to be shown as badges against the title. This is a standalone functionality",
+    },
   },
 };
 
-export const WithoutSubTab = (args) => <ReactTabContentView {...args} />;
+export const TitlesWithSearchCount = (args) => (
+  <ReactTabContentView
+    {...args}
+    searchResult={searchResult}
+    src={withoutContentNoDefault}
+  />
+);
 
-export const WithSubTab = (args) => <ReactTabContentView {...args} />;
-
-WithoutSubTab.args = {
-  src: noSubTab,
+TitlesWithSearchCount.args = {
+  src: withoutContentNoDefault,
   titleDelete: true,
   titleRefreshAll: true,
-  titleType: "chips",
-};
-
-WithSubTab.args = {
-  src: withSubTab,
-  theme: themeOrange,
+  searchResult: searchResult,
 };
 
 ReactTabContentView.propTypes = {
   theme: PropTypes.oneOf(["default", "orange"]),
-  titleType: PropTypes.oneOf(["chips"]),
   titleDelete: PropTypes.bool,
   titleRefreshAll: PropTypes.bool,
   src: PropTypes.object.isRequired,
+  searchResult: PropTypes.array,
 };

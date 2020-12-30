@@ -13,7 +13,7 @@ import Box from "@material-ui/core/Box";
 import renderHTML from "react-render-html";
 import compose from "recompose/compose";
 import { ReactComponent as RefreshIcon } from "../../src/assets/refresh.svg";
-import CustomizedProgressBars from "./Spinner";
+import LoadingSpinner from "./LoadingSpinner";
 
 import {
   closeTab,
@@ -86,35 +86,45 @@ class TabSection extends React.Component {
     const tabPanels = [];
 
     if (this.props.allTabs.length === 0) {
-      return (
-        <div>
-          <h3>
-            Oops! You closed all tabs!! Don't worry! Use{" "}
-            <RefreshIcon style={{ width: 25 }} />
-            (Refresh Icon) on top right corner of above title section to bring
-            them back...
-          </h3>
-        </div>
-      );
-    }
-    let content = this.findObject(this.props.activeTab).content;
-
-    if (content === undefined) {
-      if (this.props.contentLoading) {
+      if (this.props.defaultTitle !== 0) {
         return (
-          <CustomizedProgressBars loadingTitle={this.props.titleLoading} />
+          <div>
+            <h3>
+              Oops! You closed all tabs!! Don't worry! Use{" "}
+              <RefreshIcon style={{ width: 25 }} />
+              (Refresh Icon) on top right corner of above title section to bring
+              them back...
+            </h3>
+          </div>
         );
       } else {
         return <div></div>;
       }
     }
 
-    let hasSubTab = typeof content === "string" ? false : true;
+    let content = this.findObject(this.props.activeTab).content;
+    if (content === undefined) {
+      if (this.props.contentLoading) {
+        return <LoadingSpinner loadingTitle={this.props.titleLoading} />;
+      } else {
+        return <div></div>;
+      }
+    }
 
+    let hasSubTab = Array.isArray(content);
     let tabContent = "";
-
     if (!hasSubTab) {
-      tabContent = renderHTML(content);
+      if (typeof content === "object") {
+        const ContentDisplayComponent = this.props.contentDisplayComponent;
+        tabContent = (
+          <ContentDisplayComponent
+            src={content}
+            {...this.props.contentDisplayAttributes}
+          />
+        );
+      } else {
+        tabContent = renderHTML(content);
+      }
     } else {
       content.map((obj, idx) => {
         const { subtitle, subcontent } = obj;
@@ -148,8 +158,26 @@ class TabSection extends React.Component {
     }
 
     if (this.props.contentLoading) {
-      tabContent = (
-        <CustomizedProgressBars loadingTitle={this.props.titleLoading} />
+      tabContent = <LoadingSpinner loadingTitle={this.props.titleLoading} />;
+    }
+
+    let loadingTab = "";
+    if (this.props.titleLoading !== "") {
+      const idx = this.props.allTabs.length - 1;
+      loadingTab = (
+        <Tab
+          label={this.props.titleLoading}
+          key={idx}
+          {...a11yProps(idx)}
+          icon={
+            <CancelIcon
+              id={idx}
+              color="primary"
+              style={{ fontSize: 20 }}
+              onClick={(e) => this.deleteTab(idx, e)}
+            />
+          }
+        />
       );
     }
 
@@ -181,9 +209,12 @@ class TabSection extends React.Component {
                 />
               );
             })}
+            {loadingTab}
           </Tabs>
         </AppBar>
-        {tabContent}
+        <Box p={1}>
+          {tabContent}
+        </Box>
       </div>
     );
   }
@@ -191,15 +222,17 @@ class TabSection extends React.Component {
 
 const mapStateToProps = (state) => {
   console.log("statetoprops:", state);
-
   return {
     allTabs: state.allTabs,
     activeTab: state.activeTitle,
+    defaultTitle: state.defaultTitle,
     activeTabIndex: state.allTabs.indexOf(state.activeTitle),
     data: state.data,
     subTabValue: state.currentSubTabValue,
     contentLoading: state.contentLoading,
     titleLoading: state.titleLoading,
+    contentDisplayComponent: state.contentDisplayComponent,
+    contentDisplayAttributes: state.contentDisplayAttributes,
   };
 };
 
