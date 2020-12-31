@@ -30,7 +30,7 @@ const userActionReducer = (state = initialState, action) => {
       return {
         state,
       };
-    case UserActionTypes.CLOSE_TAB:
+    case UserActionTypes.CLOSE_TAB: {
       let tabIndex = action.payload.closedTabIndex;
       console.log("tabIndex:", tabIndex);
       // state.allTabs = state.allTabs.filter(elem => elem !== closedTab);
@@ -58,16 +58,16 @@ const userActionReducer = (state = initialState, action) => {
         ...state,
         allTabs: allTabsFiltered,
       };
-
-    case UserActionTypes.SWITCH_TAB:
+    }
+    case UserActionTypes.SWITCH_TAB: {
       console.log("SWITCH_TAB reducer:", state);
       const { allTabs } = state;
       return {
         ...state,
         activeTitle: allTabs[action.payload.newTabIndex],
       };
-
-    case UserActionTypes.CLICK_TITLE:
+    }
+    case UserActionTypes.CLICK_TITLE: {
       console.log("CLICK_TITLE reducer:", state);
       let newAllTabs =
         state.allTabs.indexOf(action.payload.id) !== -1
@@ -81,8 +81,8 @@ const userActionReducer = (state = initialState, action) => {
         loadCancelled: false,
         loadTimedout: false,
       };
-
-    case UserActionTypes.DELETE_TITLE:
+    }
+    case UserActionTypes.DELETE_TITLE: {
       console.log("DELETE_TITLE reducer:", state);
       let newDisplayTitles = state.displayedTitles.filter(
         (elem) => elem !== action.payload.id
@@ -109,8 +109,8 @@ const userActionReducer = (state = initialState, action) => {
         displayedTitles: newDisplayTitles,
         allTabs: updatedAllTabs,
       };
-
-    case UserActionTypes.REFRESH_TITLES:
+    }
+    case UserActionTypes.REFRESH_TITLES: {
       console.log("UserActionTypes.REFRESH_TITLES");
       return {
         ...state,
@@ -118,8 +118,8 @@ const userActionReducer = (state = initialState, action) => {
         activeTitle: state.defaultTitle,
         allTabs: state.defaultTitle !== 0 ? [state.defaultTitle] : [],
       };
-
-    case UserActionTypes.SET_INPUT_PROPS:
+    }
+    case UserActionTypes.SET_INPUT_PROPS: {
       console.log(
         "SET_INPUT_PROPS-refreshall:",
         action.payload.inputProps.titleRefreshAll
@@ -162,14 +162,14 @@ const userActionReducer = (state = initialState, action) => {
             ? action.payload.inputProps.contentDisplayAttributes
             : null,
       };
-
-    case UserActionTypes.SET_SUB_TAB_VALUE:
+    }
+    case UserActionTypes.SET_SUB_TAB_VALUE: {
       return {
         ...state,
         currentSubTabValue: action.payload.currentSubTabValue,
       };
-
-    case UserActionTypes.UPDATE_CONTENT:
+    }
+    case UserActionTypes.UPDATE_CONTENT: {
       const { titleId, content } = action.payload;
       let contentObj = {};
       let isDefault = false;
@@ -201,8 +201,8 @@ const userActionReducer = (state = initialState, action) => {
             ? [...state.allTabs]
             : [...state.allTabs, titleId],
       };
-
-    case UserActionTypes.SET_LOADING:
+    }
+    case UserActionTypes.SET_LOADING: {
       console.log("UserActionTypes.SET_LOADING", action.payload);
       const titleLoading = state.data[action.payload.titleId - 1].title;
 
@@ -211,29 +211,29 @@ const userActionReducer = (state = initialState, action) => {
         contentLoading: true,
         titleLoading: titleLoading,
       };
-
-    case UserActionTypes.CANCEL_LOADING:
+    }
+    case UserActionTypes.CANCEL_LOADING: {
       console.log("UserActionTypes.CANCEL_LOADING");
       return {
         ...state,
         loadCancelled: true,
       };
-
-    case UserActionTypes.RESET_LOADING:
+    }
+    case UserActionTypes.RESET_LOADING: {
       console.log("UserActionTypes.RESET_LOADING");
       return {
         ...state,
         contentLoading: false,
         titleLoading: "",
       };
-
-    case UserActionTypes.LOAD_TIMED_OUT:
+    }
+    case UserActionTypes.LOAD_TIMED_OUT: {
       console.log("UserActionTypes.LOAD_TIMED_OUT");
       return {
         ...state,
         loadTimedout: true,
       };
-
+    }
     default:
       return state;
   }

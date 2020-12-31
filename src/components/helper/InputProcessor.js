@@ -22,11 +22,11 @@ export const processInput = (src, titleType) => {
     titleId++;
   });
 
-  if(!processedData.activeTitle) {
+  if (!processedData.activeTitle) {
     processedData.activeTitle = 0;
     processedData.defaultTitle = 0;
   }
-  return [processedData, processedData.defaultTitle] ;
+  return [processedData, processedData.defaultTitle];
 };
 
 export const validateInputs = (src, titleType) => {

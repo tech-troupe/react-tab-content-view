@@ -9,29 +9,6 @@ import Tooltip from "@material-ui/core/Tooltip";
 
 import "./TabContent.css";
 
-const useStyles = (theme) => ({
-  root: {
-    display: "flex",
-    flexDirection: "column",
-  },
-  details: {
-    display: "flex",
-    flexDirection: "column",
-  },
-  content: {
-    flex: "1 0 auto",
-    "& > *": {
-      margin: theme.spacing(0.5),
-    },
-  },
-  title: {
-    fontSize: 14,
-  },
-  pos: {
-    marginBottom: 12,
-  },
-});
-
 export const TabContent = (props) => {
   const dispatch = useDispatch();
   useEffect(() => {

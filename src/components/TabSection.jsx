@@ -12,7 +12,7 @@ import CancelIcon from "@material-ui/icons/Cancel";
 import Box from "@material-ui/core/Box";
 import renderHTML from "react-render-html";
 import compose from "recompose/compose";
-import { ReactComponent as RefreshIcon } from "../../src/assets/refresh.svg";
+import RefreshIcon from "../assets/refresh.svg";
 import LoadingSpinner from "./LoadingSpinner";
 
 import {
@@ -90,7 +90,7 @@ class TabSection extends React.Component {
         return (
           <div>
             <h3>
-              Oops! You closed all tabs!! Don't worry! Use{" "}
+              Oops! You closed all tabs!! Use &nbsp;
               <RefreshIcon style={{ width: 25 }} />
               (Refresh Icon) on top right corner of above title section to bring
               them back...
@@ -145,8 +145,9 @@ class TabSection extends React.Component {
             value={idx.toString()}
             index={this.props.subTabValue}
             key={idx}
-            children={renderHTML(subcontent)}
-          />
+          >
+            {renderHTML(subcontent)}
+          </TabPanel>
         );
       });
       tabContent = (
@@ -212,9 +213,7 @@ class TabSection extends React.Component {
             {loadingTab}
           </Tabs>
         </AppBar>
-        <Box p={1}>
-          {tabContent}
-        </Box>
+        <Box p={1}>{tabContent}</Box>
       </div>
     );
   }

@@ -1,6 +1,8 @@
 {
   "name": "react-tab-content-view",
+  "description": "React component to display Javascript and JSON objects in title-content format",
   "version": "0.1.2",
+  "main": "lib/index.js",
   "dependencies": {
     "@material-ui/core": "^4.11.2",
     "@material-ui/icons": "^4.11.2",
@@ -24,11 +26,19 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "npm run clean && npm run build:commonjs && npm run build:umd && npm run build:umd:min",
+    "build:commonjs": "babel src --out-dir lib",
+    "build:umd": "cross-env FILE_NAME=reactTabContentView webpack",
+    "build:umd:min": "cross-env NODE_ENV=production npm run build:umd",
+    "clean": "rimraf lib dist",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -o docs-build -s public"
+    "build-storybook": "build-storybook -o docs-build -s public",
+    "lint": "./node_modules/.bin/eslint src",
+    "lint-fixup": "./node_modules/.bin/eslint src --ext .js,.jsx --fix",
+    "posttest": "npm run lint",
+    "prepublishOnly": "npm test && npm run build"
   },
   "eslintConfig": {
     "extends": [
@@ -49,15 +59,28 @@
     ]
   },
   "devDependencies": {
+    "@babel/cli": "^7.12.10",
+    "@babel/core": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
     "@storybook/addon-actions": "^6.1.9",
     "@storybook/addon-essentials": "^6.1.10",
     "@storybook/addon-links": "^6.1.9",
     "@storybook/node-logger": "^6.1.9",
     "@storybook/preset-create-react-app": "^3.1.5",
-    "@storybook/react": "^6.1.9"
+    "@storybook/react": "^6.1.9",
+    "@svgr/webpack": "^5.5.0",
+    "babel-eslint": "^10.1.0",
+    "cross-env": "^7.0.3",
+    "eslint-config-prettier": "^7.1.0",
+    "eslint-plugin-prettier": "^3.3.0",
+    "file-loader": "^6.2.0",
+    "rimraf": "^3.0.2",
+    "svg-react-loader": "^0.4.6",
+    "webpack-cli": "^4.3.1"
   },
-  "description": "React Tab Content View aka ReTCoV is a React component to display contents with titles and/or groups in the form of tabs, allowing users to control the tabs with various options like chips, buttons and checkboxes. This tool would let the users to quickly generate a web page that can display contents, grouped by titles. <br/><br/>",
-  "main": "index.js",
+  "files": [
+    "dist/index.js"
+  ],
   "directories": {
     "example": "examples"
   },
