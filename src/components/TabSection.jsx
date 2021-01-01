@@ -12,7 +12,7 @@ import CancelIcon from "@material-ui/icons/Cancel";
 import Box from "@material-ui/core/Box";
 import renderHTML from "react-render-html";
 import compose from "recompose/compose";
-import RefreshIcon from "../assets/refresh.svg";
+import { ReactComponent as RefreshIcon } from "../assets/refresh.svg";
 import LoadingSpinner from "./LoadingSpinner";
 
 import {
