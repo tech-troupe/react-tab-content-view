@@ -1,6 +1,7 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
-import { makeStyles, withStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import IconButton from "@material-ui/core/IconButton";
@@ -33,11 +34,8 @@ function Spinner(props) {
 
   return (
     <div className={classes.root}>
-        <IconButton onClick={() => dispatch(cancelLoading())}>
-          <CancelIcon
-            color="primary"
-            style={{ fontSize: 20 }}
-          />
+      <IconButton onClick={() => dispatch(cancelLoading())}>
+        <CancelIcon color="primary" style={{ fontSize: 20 }} />
 
         <CircularProgress
           variant="determinate"
@@ -104,3 +102,7 @@ export default function LoadingSpinner({ loadingTitle }) {
     </div>
   );
 }
+
+LoadingSpinner.propTypes = {
+  loadingTitle: PropTypes.string,
+};

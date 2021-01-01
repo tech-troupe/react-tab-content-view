@@ -30,7 +30,7 @@ const withoutContentWithDefault = {
 };
 
 const getContentWithDelay = (title) => {
-  const contentPromise = new Promise((resolve, reject) => {
+  const contentPromise = new Promise((resolve) => {
     setTimeout(() => {
       console.log("3 sec delay");
       let content = "";
@@ -62,7 +62,7 @@ const getContentWithDelay = (title) => {
 };
 
 const getContentWithoutDelay = (title) => {
-  const contentPromise = new Promise((resolve, reject) => {
+  const contentPromise = new Promise((resolve) => {
     setTimeout(() => {
       console.log("10ms sec delay");
       let content = "";

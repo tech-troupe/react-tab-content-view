@@ -28,7 +28,7 @@ function* callbackWatcherSaga(action) {
 export default function* rootSaga() {
   while (true) {
     const action = yield take(UserActionTypes.CALLBACK_WATCHER);
-    const { cbSuccess, cancelLoading, timeout } = yield race({
+    const { timeout } = yield race({
       cbSuccess: call(callbackWatcherSaga, action),
       cancelLoading: take(UserActionTypes.CANCEL_LOADING),
       timeout: call(delayAndTimeout, TIMEOUT_DURATION),
