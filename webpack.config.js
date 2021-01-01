@@ -6,9 +6,6 @@ module.exports = {
   entry: ["./src/index.js"],
   resolve: {
     extensions: [".js", ".jsx", ".svg"],
-    fallback: {
-      stream: false,
-    },
   },
   output: {
     path: path.join(__dirname, "dist"),
@@ -22,12 +19,6 @@ module.exports = {
         test: /\.js|\.jsx$/,
         exclude: /node_modules/,
       },
-      // {
-      //   test: /\.(gif|svg|jpg|png)$/,
-      //   use: ['@svgr/webpack'],
-      //   // include: [path.join(__dirname, "src/assets")],
-      //   // loader: "file-loader?name=assets/[name].[ext]",
-      // },
       {
         test: /\.svg$/,
         exclude: /node_modules/,
