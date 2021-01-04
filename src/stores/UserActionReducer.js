@@ -1,4 +1,5 @@
 import { UserActionTypes } from "./UserActionTypes";
+import { processInput } from "./../components/helper/InputProcessor";
 
 const initialState = {
   data: [],
@@ -21,6 +22,7 @@ const initialState = {
   contentDisplayAttributes: null,
   loadCancelled: false,
   loadTimedout: false,
+  defaultTitleId: 0,
 };
 
 const userActionReducer = (state = initialState, action) => {
@@ -32,19 +34,13 @@ const userActionReducer = (state = initialState, action) => {
       };
     case UserActionTypes.CLOSE_TAB: {
       let tabIndex = action.payload.closedTabIndex;
-      console.log("tabIndex:", tabIndex);
-      // state.allTabs = state.allTabs.filter(elem => elem !== closedTab);
-
       let currActiveIndex = 0;
-      // let curValue = state.activeTitle;
-
       let allTabsFiltered = state.allTabs.filter((value, index) => {
         if (state.activeTitle === value) {
           currActiveIndex = index;
         }
         return index !== tabIndex;
       });
-      console.log("currActiveIndex:", currActiveIndex);
       if (allTabsFiltered.length === 0) {
         state.activeTitle = null;
       } else if (currActiveIndex === tabIndex) {
@@ -60,7 +56,6 @@ const userActionReducer = (state = initialState, action) => {
       };
     }
     case UserActionTypes.SWITCH_TAB: {
-      console.log("SWITCH_TAB reducer:", state);
       const { allTabs } = state;
       return {
         ...state,
@@ -68,12 +63,10 @@ const userActionReducer = (state = initialState, action) => {
       };
     }
     case UserActionTypes.CLICK_TITLE: {
-      console.log("CLICK_TITLE reducer:", state);
       let newAllTabs =
         state.allTabs.indexOf(action.payload.id) !== -1
           ? [...state.allTabs]
           : [...state.allTabs, action.payload.id];
-      console.log("newAllTabs:", newAllTabs);
       return {
         ...state,
         activeTitle: action.payload.id,
@@ -83,7 +76,6 @@ const userActionReducer = (state = initialState, action) => {
       };
     }
     case UserActionTypes.DELETE_TITLE: {
-      console.log("DELETE_TITLE reducer:", state);
       let newDisplayTitles = state.displayedTitles.filter(
         (elem) => elem !== action.payload.id
       );
@@ -111,19 +103,33 @@ const userActionReducer = (state = initialState, action) => {
       };
     }
     case UserActionTypes.REFRESH_TITLES: {
-      console.log("UserActionTypes.REFRESH_TITLES");
       return {
         ...state,
         displayedTitles: state.allTitles,
-        activeTitle: state.defaultTitle,
-        allTabs: state.defaultTitle !== 0 ? [state.defaultTitle] : [],
+        activeTitle: state.defaultTitleId,
+        allTabs: state.defaultTitleId !== 0 ? [state.defaultTitleId] : [],
       };
     }
     case UserActionTypes.SET_INPUT_PROPS: {
-      console.log(
-        "SET_INPUT_PROPS-refreshall:",
-        action.payload.inputProps.titleRefreshAll
+      const transformedData = processInput(
+        action.payload.inputProps.data,
+        action.payload.inputProps.titleType
       );
+
+      //Override with default title set explicitly in the props
+      if (
+        action.payload.inputProps.defaultTitle !== undefined &&
+        Object.keys(transformedData).length > 0
+      ) {
+        const found = transformedData.data.find(
+          (obj) => obj.title === action.payload.inputProps.defaultTitle
+        );
+        if (found !== undefined) {
+          transformedData.activeTitle = found.titleId;
+          transformedData.defaultTitleId = found.titleId;
+        }
+      }
+
       const searchResultObj = {};
       if (action.payload.inputProps.searchResult !== undefined) {
         action.payload.inputProps.searchResult.map((obj) => {
@@ -132,7 +138,7 @@ const userActionReducer = (state = initialState, action) => {
       }
       return {
         ...state,
-        ...action.payload.inputProps.data,
+        ...transformedData,
         titleRefreshAll:
           action.payload.inputProps.titleRefreshAll !== undefined
             ? action.payload.inputProps.titleRefreshAll
@@ -203,7 +209,6 @@ const userActionReducer = (state = initialState, action) => {
       };
     }
     case UserActionTypes.SET_LOADING: {
-      console.log("UserActionTypes.SET_LOADING", action.payload);
       const titleLoading = state.data[action.payload.titleId - 1].title;
 
       return {
@@ -213,14 +218,12 @@ const userActionReducer = (state = initialState, action) => {
       };
     }
     case UserActionTypes.CANCEL_LOADING: {
-      console.log("UserActionTypes.CANCEL_LOADING");
       return {
         ...state,
         loadCancelled: true,
       };
     }
     case UserActionTypes.RESET_LOADING: {
-      console.log("UserActionTypes.RESET_LOADING");
       return {
         ...state,
         contentLoading: false,
@@ -228,7 +231,6 @@ const userActionReducer = (state = initialState, action) => {
       };
     }
     case UserActionTypes.LOAD_TIMED_OUT: {
-      console.log("UserActionTypes.LOAD_TIMED_OUT");
       return {
         ...state,
         loadTimedout: true,

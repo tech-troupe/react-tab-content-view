@@ -1,13 +1,15 @@
 import React from "react";
 import { TabContent } from "./components/TabContent";
-import { processInput } from "./components/helper/InputProcessor";
 import { Provider } from "react-redux";
 import { store } from "./stores/store";
 import PropTypes from "prop-types";
 import { ThemeProvider } from "@material-ui/core";
+import { createMuiTheme } from "@material-ui/core/styles";
 
 const ReactTabContentView = (props) => {
   const {
+    src,
+    defaultTitle,
     theme,
     titleType,
     titleDelete,
@@ -19,16 +21,12 @@ const ReactTabContentView = (props) => {
     contentDisplayAttributes,
   } = props;
 
-  const [transformedInput, defaultTitle] = processInput(
-    props.src,
-    props.titleType
-  );
   return (
     <Provider store={store}>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={theme !== undefined ? theme : createMuiTheme()}>
         <div className="react-tab-content-view">
           <TabContent
-            data={transformedInput}
+            data={src}
             defaultTitle={defaultTitle}
             titleType={titleType}
             searchResult={searchResult}
@@ -46,16 +44,17 @@ const ReactTabContentView = (props) => {
 };
 
 ReactTabContentView.propTypes = {
-  theme: PropTypes.oneOf(["default", "orange"]),
+  theme: PropTypes.object,
   titleType: PropTypes.oneOf(["chips", "buttons", "checkboxes"]),
   titleDelete: PropTypes.bool,
   titleRefreshAll: PropTypes.bool,
   src: PropTypes.object.isRequired,
+  defaultTitle: PropTypes.string,
   searchResult: PropTypes.array,
   contentCallback: PropTypes.func,
   advancedMode: PropTypes.bool,
-  contentDisplayComponent: PropTypes.object,
-  contentDisplayAttributes: PropTypes.array,
+  contentDisplayComponent: PropTypes.func,
+  contentDisplayAttributes: PropTypes.object,
 };
 
 export default ReactTabContentView;

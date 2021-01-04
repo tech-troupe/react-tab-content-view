@@ -4,14 +4,17 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 
 module.exports = {
-  mode: "production",
+  mode: "development",
   entry: ["./src/index.js"],
   resolve: {
-    extensions: [".js", ".jsx", "*.css"],
+    extensions: [".js", ".jsx", "*.css", ".svg"],
+    alias: {
+      'assets': path.resolve(__dirname, 'assets')
+    }
   },
   output: {
     path: path.join(__dirname, "dist"),
-    filename: "main.min.js",
+    filename: "main.js",
     library: "reactTabContentView",
     libraryTarget: "umd",
   },

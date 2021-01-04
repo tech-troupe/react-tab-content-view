@@ -64,12 +64,12 @@ class TitleSection extends React.Component {
     }
   };
 
-  componentDidMount = () => {
-    if (this.props.defaultTitle) {
-      // Below timeout to be eventually removed
-      setTimeout(() => {
-        this.checkAndLoadContent(this.props.defaultTitle);
-      }, 0);
+  componentDidUpdate = () => {
+    if (
+      this.props.activeTitle !== 0 &&
+      !this.props.allTabs.includes(this.props.activeTitle)
+    ) {
+      this.checkAndLoadContent(this.props.activeTitle);
     }
   };
 
@@ -86,7 +86,6 @@ class TitleSection extends React.Component {
     if (this.props.searchResult === null) {
       chipAndBadge = (
         <Chip
-          key={obj.titleId}
           variant={variantValue}
           size="small"
           color="primary"
@@ -110,7 +109,6 @@ class TitleSection extends React.Component {
           color="secondary"
         >
           <Chip
-            key={obj.titleId}
             variant={variantValue}
             size="small"
             color="primary"
@@ -133,9 +131,9 @@ class TitleSection extends React.Component {
     const { classes } = this.props;
 
     return (
-      <div className={classes.root}>
-        <Card className={classes.details}>
-          <CardContent className={classes.content}>
+      <div className={classes.root} key="1">
+        <Card className={classes.details} key="1">
+          <CardContent className={classes.content} key="1">
             {this.props.displayedTitles.map((objId) => {
               let obj = this.findObject(objId);
               let variantValue =
@@ -150,8 +148,6 @@ class TitleSection extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log("statetoprops Titlesection:", state);
-
   return {
     displayedTitles: state.displayedTitles,
     activeTitle: state.activeTitle,
@@ -162,11 +158,11 @@ const mapStateToProps = (state) => {
     advancedMode: state.advancedMode,
     callbackFn: state.contentCallback,
     contentLoading: state.contentLoading,
+    allTabs: state.allTabs,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  console.log("inside mapDispatchToProps");
   return {
     deleteTitle: (id) => dispatch(deleteTitle(id)),
     intialize: () => dispatch(intialize()),
