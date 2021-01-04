@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import ReactTabContentView from "../components/ReactTabContentView";
+import ReactTabContentView from "../index";
 import ReactJsonView from "react-json-view";
 
 const externalDisplayComp = {

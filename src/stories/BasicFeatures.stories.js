@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { createMuiTheme } from "@material-ui/core";
-import ReactTabContentView from "../components/ReactTabContentView";
+import ReactTabContentView from "../index";
 
 const noSubTab = {
   data: [

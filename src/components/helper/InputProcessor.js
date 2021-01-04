@@ -1,4 +1,7 @@
 export const processInput = (src, titleType) => {
+  if (Object.keys(src).length <= 0) {
+    return {};
+  }
   const validation_result = validateInputs(src, titleType);
   if (validation_result) {
     return [validation_result];
@@ -16,7 +19,7 @@ export const processInput = (src, titleType) => {
     if (group.default === true) {
       processedData.allTabs.push(titleId);
       processedData.activeTitle = titleId;
-      processedData.defaultTitle = titleId;
+      processedData.defaultTitleId = titleId;
     }
     processedData.displayedTitles.push(titleId);
     titleId++;
@@ -24,9 +27,9 @@ export const processInput = (src, titleType) => {
 
   if (!processedData.activeTitle) {
     processedData.activeTitle = 0;
-    processedData.defaultTitle = 0;
+    processedData.defaultTitleId = 0;
   }
-  return [processedData, processedData.defaultTitle];
+  return processedData;
 };
 
 export const validateInputs = (src, titleType) => {
@@ -34,13 +37,9 @@ export const validateInputs = (src, titleType) => {
     return null;
   }
 
-  if (
-    titleType !== "checkboxes" &&
-    titleType !== "buttons" &&
-    titleType !== "chips"
-  ) {
+  if (titleType !== "chips") {
     return {
-      error: "Input titleType should be one of {checkbox, button, chips}",
+      error: "Input titleType should be one of {chips}",
     };
   }
 
