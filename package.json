@@ -1,7 +1,7 @@
 {
   "name": "react-tab-content-view",
   "description": "React component to display Javascript and JSON objects in title-content format",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "main": "dist/index.js",
   "dependencies": {
     "@material-ui/core": "^4.11.2",
@@ -39,7 +39,7 @@
     "lint": "./node_modules/.bin/eslint src",
     "lint-fixup": "./node_modules/.bin/eslint src --ext .js,.jsx --fix",
     "posttest": "npm run lint",
-    "prepublishOnly": "npm test && npm run build",
+    "prepublishOnly": "npm test && npm run build:prod",
     "release": "release-it"
   },
   "eslintConfig": {
