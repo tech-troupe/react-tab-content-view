@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Card from "@material-ui/core/Card";
 import TitleSection from "./TitleSection";
 import TabSection from "./TabSection";
-import { ReactComponent as RefreshIcon } from "../../src/assets/refresh.svg";
+import RefreshIcon from "../images/Refresh";
 import { refreshTitles, setInputProps } from "../stores/UserActions.js";
 import Tooltip from "@material-ui/core/Tooltip";
 
@@ -34,7 +34,9 @@ export const TabContent = (props) => {
     refreshIcon = (
       <div className="refresh-icon" onClick={() => dispatch(refreshTitles())}>
         <Tooltip title="Refresh to display all titles" aria-label="refresh">
-          <RefreshIcon />
+          <span>
+            <RefreshIcon />
+          </span>
         </Tooltip>
       </div>
     );
@@ -44,7 +46,7 @@ export const TabContent = (props) => {
     <div className="tab-content-container">
       {refreshIcon}
       <Card className="title-container">
-        <TitleSection defaultTitle={props.defaultTitle} />
+        <TitleSection />
       </Card>
       <Card className="tab-container">
         <TabSection />

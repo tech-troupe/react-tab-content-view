@@ -89,14 +89,12 @@ export const setLoading = (titleId) => ({
 });
 
 export const cancelLoading = () => {
-  console.log("cancelLoading:");
   return {
     type: UserActionTypes.CANCEL_LOADING,
   };
 };
 
 export const resetLoading = () => {
-  console.log("resetLoading:");
   return {
     type: UserActionTypes.RESET_LOADING,
   };

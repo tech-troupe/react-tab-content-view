@@ -12,7 +12,7 @@ import CancelIcon from "@material-ui/icons/Cancel";
 import Box from "@material-ui/core/Box";
 import renderHTML from "react-render-html";
 import compose from "recompose/compose";
-import { ReactComponent as RefreshIcon } from "../assets/refresh.svg";
+import RefreshIcon from "../images/Refresh";
 import LoadingSpinner from "./LoadingSpinner";
 
 import {
@@ -86,7 +86,7 @@ class TabSection extends React.Component {
     const tabPanels = [];
 
     if (this.props.allTabs.length === 0) {
-      if (this.props.defaultTitle !== 0) {
+      if (this.props.defaultTitleId !== 0) {
         return (
           <div>
             <h3>
@@ -146,7 +146,13 @@ class TabSection extends React.Component {
             index={this.props.subTabValue}
             key={idx}
           >
-            {renderHTML(subcontent)}
+            {typeof subcontent === "object" ? (
+              <pre>
+                <code>{JSON.stringify(subcontent, null, 2)}</code>
+              </pre>
+            ) : (
+              renderHTML(subcontent)
+            )}
           </TabPanel>
         );
       });
@@ -220,11 +226,10 @@ class TabSection extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log("statetoprops:", state);
   return {
     allTabs: state.allTabs,
     activeTab: state.activeTitle,
-    defaultTitle: state.defaultTitle,
+    defaultTitleId: state.defaultTitleId,
     activeTabIndex: state.allTabs.indexOf(state.activeTitle),
     data: state.data,
     subTabValue: state.currentSubTabValue,
@@ -236,7 +241,6 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  console.log("inside mapDispatchToProps");
   return {
     deleteTab: (indx) => dispatch(closeTab(indx)),
     intializeState: () => dispatch(intializeState()),
