@@ -67,7 +67,8 @@ class TitleSection extends React.Component {
   componentDidUpdate = () => {
     if (
       this.props.activeTitle !== 0 &&
-      !this.props.allTabs.includes(this.props.activeTitle)
+      !this.props.allTabs.includes(this.props.activeTitle) &&
+      this.props.contentLoading === false
     ) {
       this.checkAndLoadContent(this.props.activeTitle);
     }
