@@ -1,12 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
 import compose from "recompose/compose";
-import Card from "@material-ui/core/Card";
+import { Card, Grid, Paper } from "@material-ui/core";
 import CardContent from "@material-ui/core/CardContent";
 import { withStyles } from "@material-ui/core/styles";
 import Chip from "@material-ui/core/Chip";
 import Badge from "@material-ui/core/Badge";
 import PropTypes from "prop-types";
+import OutlinedDiv from "./OutlinedDiv";
 
 import {
   deleteTitle,
@@ -20,11 +21,12 @@ const useStyles = (theme) => ({
     display: "flex",
     flexDirection: "row",
     justifyContent: "center",
-    // maxWidth: 800,
+    flexGrow: 1,
   },
   details: {
     display: "flex",
     flexDirection: "column",
+    justifyContent: "center",
   },
   content: {
     flex: "1 0 auto",
@@ -37,6 +39,18 @@ const useStyles = (theme) => ({
   },
   pos: {
     marginBottom: 12,
+  },
+  paper: {
+    textAlign: "center",
+    color: theme.palette.text.secondary,
+  },
+  chips: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    "& > *": {
+      margin: theme.spacing(0.5),
+    },
   },
 });
 
@@ -81,11 +95,50 @@ class TitleSection extends React.Component {
   findObject = (objId) =>
     this.props.data.find((item) => item.titleId === objId);
 
+  createDisplayObjectGroup = (grpName, titles) => {
+    // Filter titleID not in displayed titles
+    const filteredTitles = titles.filter((titleId) =>
+      this.props.displayedTitles.includes(titleId)
+    );
+
+    let chipsList = [];
+    if (grpName !== "NoGroup") {
+      chipsList = filteredTitles.map((titleId) => {
+        let obj = this.findObject(titleId);
+        let variantValue =
+          obj.titleId === this.props.activeTitle ? "default" : "outlined";
+        return this.onBadgeEnable(obj, variantValue);
+      });
+      return chipsList.length > 0 ? (
+        <Grid item xs={6} justify="space-evenly">
+          <OutlinedDiv label={grpName}>
+            <div className={this.props.classes.chips}>{chipsList}</div>
+          </OutlinedDiv>
+        </Grid>
+      ) : (
+        <div></div>
+      );
+    } else {
+      chipsList = filteredTitles.map((titleId) => {
+        let obj = this.findObject(titleId);
+        let variantValue =
+          obj.titleId === this.props.activeTitle ? "default" : "outlined";
+        return this.onBadgeEnable(obj, variantValue);
+      });
+      return (
+        <Paper className={this.props.classes.paper}>
+          <div className={this.props.classes.chips}>{chipsList}</div>
+        </Paper>
+      );
+    }
+  };
+
   onBadgeEnable = (obj, variantValue) => {
     let chipAndBadge;
     if (this.props.searchResult === null) {
       chipAndBadge = (
         <Chip
+          className={this.props.classes.chips}
           variant={variantValue}
           size="small"
           color="primary"
@@ -123,23 +176,26 @@ class TitleSection extends React.Component {
         </Badge>
       );
     }
-
     return chipAndBadge;
   };
 
   render() {
     const { classes } = this.props;
+    let objectWithGroup = [];
+    this.props.displayedTitlesWithGroup &&
+      Object.entries(this.props.displayedTitlesWithGroup).forEach(
+        ([key, value]) => {
+          objectWithGroup.push(this.createDisplayObjectGroup(key, value));
+        }
+      );
 
     return (
       <div className={classes.root} key="1">
         <Card className={classes.details} key="1">
           <CardContent className={classes.content} key="1">
-            {this.props.displayedTitles.map((objId) => {
-              let obj = this.findObject(objId);
-              let variantValue =
-                obj.titleId === this.props.activeTitle ? "default" : "outlined";
-              return this.onBadgeEnable(obj, variantValue);
-            })}
+            <Grid container spacing={2}>
+              {objectWithGroup && objectWithGroup.map((elem) => elem)}
+            </Grid>
           </CardContent>
         </Card>
       </div>
@@ -150,6 +206,7 @@ class TitleSection extends React.Component {
 const mapStateToProps = (state) => {
   return {
     displayedTitles: state.displayedTitles,
+    displayedTitlesWithGroup: state.displayedTitlesWithGroup,
     activeTitle: state.activeTitle,
     data: state.data,
     titleDelete: state.titleDelete,
