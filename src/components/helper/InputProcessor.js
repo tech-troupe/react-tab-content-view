@@ -18,7 +18,6 @@ export const processInput = (src, titleType, hasGroup) => {
   processedData.data.map((obj, i) => {
     processedData.data[i] = { ...obj, titleId };
     processedData.allTitles.push(titleId);
-
     if (obj.default === true) {
       processedData.allTabs.push(titleId);
       processedData.activeTitle = titleId;

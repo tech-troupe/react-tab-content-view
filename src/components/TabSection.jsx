@@ -85,7 +85,7 @@ class TabSection extends React.Component {
     const subTabs = [];
     const tabPanels = [];
 
-    if (this.props.allTabs.length === 0) {
+    if (this.props.allTabs.length === 0 && !this.props.contentLoading) {
       if (this.props.defaultTitleId !== 0) {
         return (
           <div>
@@ -102,13 +102,13 @@ class TabSection extends React.Component {
       }
     }
 
+    if (this.props.contentLoading) {
+      return <LoadingSpinner loadingTitle={this.props.titleLoading} />;
+    }
+
     let content = this.findObject(this.props.activeTab).content;
     if (content === undefined) {
-      if (this.props.contentLoading) {
-        return <LoadingSpinner loadingTitle={this.props.titleLoading} />;
-      } else {
-        return <div></div>;
-      }
+      return <div></div>;
     }
 
     let hasSubTab = Array.isArray(content);

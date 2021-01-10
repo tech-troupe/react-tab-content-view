@@ -6,149 +6,466 @@ import ReactJsonView from "react-json-view";
 const externalDisplayComp = {
   data: [
     {
-      title: "English",
+      title: "/pet/{petId}/uploadImage",
       content: {
-        topic: {
-          topic1:
-            "When was the last time we did some thing for the first time?",
-          topic2:
-            "Here is the first of everything we did in the last few days!!",
+        post: {
+          tags: ["pet"],
+          summary: "uploads an image",
+          description: "",
+          operationId: "uploadFile",
+          consumes: ["multipart/form-data"],
+          produces: ["application/json"],
+          parameters: [
+            {
+              name: "petId",
+              in: "path",
+              description: "ID of pet to update",
+              required: true,
+              type: "integer",
+              format: "int64",
+            },
+            {
+              name: "additionalMetadata",
+              in: "formData",
+              description: "Additional data to pass to server",
+              required: false,
+              type: "string",
+            },
+            {
+              name: "file",
+              in: "formData",
+              description: "file to upload",
+              required: false,
+              type: "file",
+            },
+          ],
+          responses: {
+            "200": {
+              description: "successful operation",
+              schema: {
+                $ref: "#/definitions/ApiResponse",
+              },
+            },
+          },
+          security: [
+            {
+              petstore_auth: ["write:pets", "read:pets"],
+            },
+          ],
         },
-        description: [
-          "First time FOSSATHON",
-          "First time trying to build a UI application.",
-          "First time to learn REACT.",
-          "First time to write code in REACT.",
-          "First attempt to give back to the open source community.",
-          "First time working tirelessly",
-          "trying to learn and implement in just a couple of days.",
-        ],
-      },
-      default: true,
-    },
-    {
-      title: "Tamil",
-      content: {
-        topic: {
-          topic1: "கடைசியாக எப்போது நாங்கள் முதல் முறையாக ஏதாவது செய்தோம்?",
-          topic2:
-            "கடந்த சில நாட்களில் நாங்கள் செய்த எல்லாவற்றிலும் இதுதான் முதல் !!",
-        },
-        description: [
-          "முதல் முறையாக FOSSATHON",
-          "முதல் முறையாக UI பயன்பாட்டை உருவாக்க முயற்சிக்கிறது.",
-          "முதல் முறையாக REACT கற்க.",
-          "REACT இல் குறியீட்டை எழுத முதல் முறை.",
-          "திறந்த மூல சமூகத்திற்கு திருப்பித் தர முதல் முயற்சி.",
-          "முதல் முறையாக இரவு பகலாக வேலை செய்வது",
-          "ஓரிரு நாட்களில் கற்றுக் கொண்டு செயல்படுத்த முயற்சிக்கிறது.",
-        ],
-      },
-      default: false,
-    },
-    {
-      title: "Russian",
-      content: {
-        topic: {
-          topic1: "Когда мы в последний раз делали что-то в первый раз?",
-          topic2:
-            "Вот первое из всего, что мы сделали за последние несколько дней !!",
-        },
-        description: [
-          "Впервые ФОССАТОН",
-          "Первая попытка создания UI-приложения.",
-          "Впервые изучаю РЕАКТ.",
-          "Впервые пишу код в REACT.",
-          "Первая попытка отдать должное сообществу открытого исходного кода.",
-          "Работаю впервые днем и ночью, пытаюсь выучить и внедрить буквально за пару дней.",
-        ],
       },
     },
     {
-      title: "Hindi",
+      title: "/pet",
       content: {
-        topic: {
-          topic1: "आखिरी बार हमने पहली बार कब कुछ किया था?",
-          topic2:
-            "यहाँ पिछले कुछ दिनों में हमने जो कुछ किया है, उसमें से पहला है !!",
+        post: {
+          tags: ["pet"],
+          summary: "Add a new pet to the store",
+          description: "",
+          operationId: "addPet",
+          consumes: ["application/json", "application/xml"],
+          produces: ["application/json", "application/xml"],
+          parameters: [
+            {
+              in: "body",
+              name: "body",
+              description: "Pet object that needs to be added to the store",
+              required: true,
+              schema: {
+                $ref: "#/definitions/Pet",
+              },
+            },
+          ],
+          responses: {
+            "405": {
+              description: "Invalid input",
+            },
+          },
+          security: [
+            {
+              petstore_auth: ["write:pets", "read:pets"],
+            },
+          ],
         },
-        description: [
-          "पहली बार FOSSATHON",
-          "पहली बार UI एप्लिकेशन बनाने की कोशिश कर रहा है।",
-          "पहली बार REACT सीखने का।",
-          "पहली बार REACT में कोड लिखने के लिए।",
-          "ओपन सोर्स समुदाय को वापस देने का पहला प्रयास।",
-          "पहली बार दिन-रात काम करना, कुछ ही दिनों में सीखने और लागू करने की कोशिश करना।",
-        ],
+        put: {
+          tags: ["pet"],
+          summary: "Update an existing pet",
+          description: "",
+          operationId: "updatePet",
+          consumes: ["application/json", "application/xml"],
+          produces: ["application/json", "application/xml"],
+          parameters: [
+            {
+              in: "body",
+              name: "body",
+              description: "Pet object that needs to be added to the store",
+              required: true,
+              schema: {
+                $ref: "#/definitions/Pet",
+              },
+            },
+          ],
+          responses: {
+            "400": {
+              description: "Invalid ID supplied",
+            },
+            "404": {
+              description: "Pet not found",
+            },
+            "405": {
+              description: "Validation exception",
+            },
+          },
+          security: [
+            {
+              petstore_auth: ["write:pets", "read:pets"],
+            },
+          ],
+        },
       },
     },
     {
-      title: "Spanish",
+      title: "/pet/findByStatus",
       content: {
-        topic: {
-          topic1: "¿Cuándo fue la última vez que hicimos algo por primera vez?",
-          topic2:
-            "¡Aquí está el primero de todo lo que hicimos en los últimos días!",
+        get: {
+          tags: ["pet"],
+          summary: "Finds Pets by status",
+          description:
+            "Multiple status values can be provided with comma separated strings",
+          operationId: "findPetsByStatus",
+          produces: ["application/json", "application/xml"],
+          parameters: [
+            {
+              name: "status",
+              in: "query",
+              description:
+                "Status values that need to be considered for filter",
+              required: true,
+              type: "array",
+              items: {
+                type: "string",
+                enum: ["available", "pending", "sold"],
+                default: "available",
+              },
+              collectionFormat: "multi",
+            },
+          ],
+          responses: {
+            "200": {
+              description: "successful operation",
+              schema: {
+                type: "array",
+                items: {
+                  $ref: "#/definitions/Pet",
+                },
+              },
+            },
+            "400": {
+              description: "Invalid status value",
+            },
+          },
+          security: [
+            {
+              petstore_auth: ["write:pets", "read:pets"],
+            },
+          ],
         },
-        description: [
-          "Primera vez FOSSATHON",
-          "Primera vez que intento crear una aplicación de interfaz de usuario.",
-          "Primer intento de retribuir a la comunidad de código abierto.",
-          "Primera vez trabajando día y noche",
-          "intentando aprender e implementar en tan solo un par de días.",
-        ],
       },
     },
     {
-      title: "Chinese",
+      title: "/pet/findByTags",
       content: {
-        topic: {
-          topic1: "我们上一次第一次做某事是什么时候",
-          topic2: "这是我们最近几天所做的所有事情中的第一项！！",
+        get: {
+          tags: ["pet"],
+          summary: "Finds Pets by tags",
+          description:
+            "Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.",
+          operationId: "findPetsByTags",
+          produces: ["application/json", "application/xml"],
+          parameters: [
+            {
+              name: "tags",
+              in: "query",
+              description: "Tags to filter by",
+              required: true,
+              type: "array",
+              items: {
+                type: "string",
+              },
+              collectionFormat: "multi",
+            },
+          ],
+          responses: {
+            "200": {
+              description: "successful operation",
+              schema: {
+                type: "array",
+                items: {
+                  $ref: "#/definitions/Pet",
+                },
+              },
+            },
+            "400": {
+              description: "Invalid tag value",
+            },
+          },
+          security: [
+            {
+              petstore_auth: ["write:pets", "read:pets"],
+            },
+          ],
+          deprecated: true,
         },
-        description: [
-          "第一次FOSSATHON",
-          "首次尝试构建UI应用程序。",
-          "第一次学习REACT。",
-          "第一次用REACT编写代码。",
-          "首次尝试回馈开源社区。",
-          "白天和黑夜的第一次工作，试图在短短几天内学习和实施。",
-        ],
       },
     },
     {
-      title: "French",
+      title: "/pet/{petId}",
       content: {
-        topic: {
-          topic1:
-            "À quand remonte la dernière fois que nous avons fait quelque chose pour la première fois?",
-          topic2:
-            "Voici le premier de tout ce que nous avons fait ces derniers jours !!",
+        get: {
+          tags: ["pet"],
+          summary: "Find pet by ID",
+          description: "Returns a single pet",
+          operationId: "getPetById",
+          produces: ["application/json", "application/xml"],
+          parameters: [
+            {
+              name: "petId",
+              in: "path",
+              description: "ID of pet to return",
+              required: true,
+              type: "integer",
+              format: "int64",
+            },
+          ],
+          responses: {
+            "200": {
+              description: "successful operation",
+              schema: {
+                $ref: "#/definitions/Pet",
+              },
+            },
+            "400": {
+              description: "Invalid ID supplied",
+            },
+            "404": {
+              description: "Pet not found",
+            },
+          },
+          security: [
+            {
+              api_key: [],
+            },
+          ],
         },
-        description: [
-          "Première fois FOSSATHON",
-          "Première tentative de création d'une application d'interface utilisateur",
-          "Première fois d'écrire du code dans REACT",
-          "Première tentative de redonner à la communauté open source.",
-          "La première fois à travailler jour et nuit, en essayant d'apprendre et de mettre en œuvre en quelques jours seulement",
-        ],
+        post: {
+          tags: ["pet"],
+          summary: "Updates a pet in the store with form data",
+          description: "",
+          operationId: "updatePetWithForm",
+          consumes: ["application/x-www-form-urlencoded"],
+          produces: ["application/json", "application/xml"],
+          parameters: [
+            {
+              name: "petId",
+              in: "path",
+              description: "ID of pet that needs to be updated",
+              required: true,
+              type: "integer",
+              format: "int64",
+            },
+            {
+              name: "name",
+              in: "formData",
+              description: "Updated name of the pet",
+              required: false,
+              type: "string",
+            },
+            {
+              name: "status",
+              in: "formData",
+              description: "Updated status of the pet",
+              required: false,
+              type: "string",
+            },
+          ],
+          responses: {
+            "405": {
+              description: "Invalid input",
+            },
+          },
+          security: [
+            {
+              petstore_auth: ["write:pets", "read:pets"],
+            },
+          ],
+        },
+        delete: {
+          tags: ["pet"],
+          summary: "Deletes a pet",
+          description: "",
+          operationId: "deletePet",
+          produces: ["application/json", "application/xml"],
+          parameters: [
+            {
+              name: "api_key",
+              in: "header",
+              required: false,
+              type: "string",
+            },
+            {
+              name: "petId",
+              in: "path",
+              description: "Pet id to delete",
+              required: true,
+              type: "integer",
+              format: "int64",
+            },
+          ],
+          responses: {
+            "400": {
+              description: "Invalid ID supplied",
+            },
+            "404": {
+              description: "Pet not found",
+            },
+          },
+          security: [
+            {
+              petstore_auth: ["write:pets", "read:pets"],
+            },
+          ],
+        },
       },
     },
     {
-      title: "Latin",
+      title: "/store/order",
       content: {
-        topic: {
-          topic1: "Ubi ultimum tempus est quaedam res fecit ut primum?",
-          topic2: "Primum omnium in paucis diebus nos !!",
+        post: {
+          tags: ["store"],
+          summary: "Place an order for a pet",
+          description: "",
+          operationId: "placeOrder",
+          consumes: ["application/json"],
+          produces: ["application/json", "application/xml"],
+          parameters: [
+            {
+              in: "body",
+              name: "body",
+              description: "order placed for purchasing the pet",
+              required: true,
+              schema: {
+                $ref: "#/definitions/Order",
+              },
+            },
+          ],
+          responses: {
+            "200": {
+              description: "successful operation",
+              schema: {
+                $ref: "#/definitions/Order",
+              },
+            },
+            "400": {
+              description: "Invalid Order",
+            },
+          },
         },
-        description: [
-          "Primo tempore FOSSATHON",
-          "Primo tempore conatur facere in III application.",
-          "Prius discere ad agere.",
-          "STO in codice prius temporis scribere.",
-          "Dare conantur, prius ad fontem aperta est civitas.",
-          "Prius tempore working die ac nocte, ut conatur discere, et a modo per effectum deducendi duobus diebus.",
-        ],
+      },
+    },
+    {
+      title: "/store/order/{orderId}",
+      content: {
+        get: {
+          tags: ["store"],
+          summary: "Find purchase order by ID",
+          description:
+            "For valid response try integer IDs with value >= 1 and <= 10. Other values will generated exceptions",
+          operationId: "getOrderById",
+          produces: ["application/json", "application/xml"],
+          parameters: [
+            {
+              name: "orderId",
+              in: "path",
+              description: "ID of pet that needs to be fetched",
+              required: true,
+              type: "integer",
+              maximum: 10,
+              minimum: 1,
+              format: "int64",
+            },
+          ],
+          responses: {
+            "200": {
+              description: "successful operation",
+              schema: {
+                $ref: "#/definitions/Order",
+              },
+            },
+            "400": {
+              description: "Invalid ID supplied",
+            },
+            "404": {
+              description: "Order not found",
+            },
+          },
+        },
+        delete: {
+          tags: ["store"],
+          summary: "Delete purchase order by ID",
+          description:
+            "For valid response try integer IDs with positive integer value. Negative or non-integer values will generate API errors",
+          operationId: "deleteOrder",
+          produces: ["application/json", "application/xml"],
+          parameters: [
+            {
+              name: "orderId",
+              in: "path",
+              description: "ID of the order that needs to be deleted",
+              required: true,
+              type: "integer",
+              minimum: 1,
+              format: "int64",
+            },
+          ],
+          responses: {
+            "400": {
+              description: "Invalid ID supplied",
+            },
+            "404": {
+              description: "Order not found",
+            },
+          },
+        },
+      },
+    },
+    {
+      title: "/store/inventory",
+      content: {
+        get: {
+          tags: ["store"],
+          summary: "Returns pet inventories by status",
+          description: "Returns a map of status codes to quantities",
+          operationId: "getInventory",
+          produces: ["application/json"],
+          parameters: [],
+          responses: {
+            "200": {
+              description: "successful operation",
+              schema: {
+                type: "object",
+                additionalProperties: {
+                  type: "integer",
+                  format: "int32",
+                },
+              },
+            },
+          },
+          security: [
+            {
+              api_key: [],
+            },
+          ],
+        },
       },
     },
   ],
@@ -256,15 +573,14 @@ export const WithoutSubTab = (args) => (
     src={externalDisplayComp}
     contentDisplayComponent={ReactJsonView}
     contentDisplayAttributes={reactJsonAttributes}
+    defaultTitle={"/pet"}
   />
 );
 
 WithoutSubTab.args = {
-  src: externalDisplayComp,
   titleDelete: true,
   titleRefreshAll: true,
   contentDisplayComponent: ReactJsonView,
-  contentDisplayAttributes: reactJsonAttributes,
 };
 
 ReactTabContentView.propTypes = {

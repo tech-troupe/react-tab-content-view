@@ -81,7 +81,8 @@ class TitleSection extends React.Component {
   componentDidUpdate = () => {
     if (
       this.props.activeTitle !== 0 &&
-      !this.props.allTabs.includes(this.props.activeTitle)
+      !this.props.allTabs.includes(this.props.activeTitle) &&
+      this.props.contentLoading === false
     ) {
       this.checkAndLoadContent(this.props.activeTitle);
     }
@@ -138,7 +139,6 @@ class TitleSection extends React.Component {
     if (this.props.searchResult === null) {
       chipAndBadge = (
         <Chip
-          className={this.props.classes.chips}
           variant={variantValue}
           size="small"
           color="primary"
