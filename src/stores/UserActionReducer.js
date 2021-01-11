@@ -23,6 +23,8 @@ const initialState = {
   loadCancelled: false,
   loadTimedout: false,
   defaultTitleId: 0,
+  displayedTitlesWithGroup: 0,
+  hasGroup: false,
 };
 
 const userActionReducer = (state = initialState, action) => {
@@ -113,7 +115,10 @@ const userActionReducer = (state = initialState, action) => {
     case UserActionTypes.SET_INPUT_PROPS: {
       const transformedData = processInput(
         action.payload.inputProps.data,
-        action.payload.inputProps.titleType
+        action.payload.inputProps.titleType,
+        action.payload.inputProps.hasGroup !== undefined
+          ? action.payload.inputProps.hasGroup
+          : false
       );
 
       //Override with default title set explicitly in the props

@@ -19,6 +19,7 @@ const ReactTabContentView = (props) => {
     advancedMode,
     contentDisplayComponent,
     contentDisplayAttributes,
+    hasGroup,
   } = props;
 
   return (
@@ -36,6 +37,7 @@ const ReactTabContentView = (props) => {
             advancedMode={advancedMode}
             contentDisplayComponent={contentDisplayComponent}
             contentDisplayAttributes={contentDisplayAttributes}
+            hasGroup={hasGroup}
           />
         </div>
       </ThemeProvider>
@@ -55,6 +57,7 @@ ReactTabContentView.propTypes = {
   advancedMode: PropTypes.bool,
   contentDisplayComponent: PropTypes.func,
   contentDisplayAttributes: PropTypes.object,
+  hasGroup: PropTypes.bool,
 };
 
 export default ReactTabContentView;

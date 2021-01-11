@@ -1,7 +1,7 @@
 {
   "name": "react-tab-content-view",
   "description": "React component to display Javascript and JSON objects in title-content format",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "main": "dist/index.js",
   "dependencies": {
     "@material-ui/core": "^4.11.2",

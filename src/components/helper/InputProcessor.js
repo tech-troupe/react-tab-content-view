@@ -1,4 +1,4 @@
-export const processInput = (src, titleType) => {
+export const processInput = (src, titleType, hasGroup) => {
   if (Object.keys(src).length <= 0) {
     return {};
   }
@@ -12,15 +12,33 @@ export const processInput = (src, titleType) => {
   processedData.allTitles = [];
   processedData.displayedTitles = [];
   processedData.allTabs = [];
+  processedData.displayedTitlesWithGroup = {};
   processedData.closedTitle = null;
-  processedData.data.map((group, i) => {
-    processedData.data[i] = { ...group, titleId };
+  processedData.hasGroup = hasGroup;
+  processedData.data.map((obj, i) => {
+    processedData.data[i] = { ...obj, titleId };
     processedData.allTitles.push(titleId);
-    if (group.default === true) {
+    if (obj.default === true) {
+      processedData.allTabs.push(titleId);
       processedData.activeTitle = titleId;
       processedData.defaultTitleId = titleId;
     }
     processedData.displayedTitles.push(titleId);
+    if (processedData.hasGroup) {
+      const grpName =
+        processedData.data[i].groupName !== undefined
+          ? processedData.data[i].groupName
+          : "Others";
+      processedData.hasGroup = true;
+      processedData.displayedTitlesWithGroup[grpName.trim()]
+        ? processedData.displayedTitlesWithGroup[grpName.trim()].push(titleId)
+        : (processedData.displayedTitlesWithGroup[grpName.trim()] = [titleId]);
+    } else {
+      processedData.displayedTitlesWithGroup["NoGroup"]
+        ? processedData.displayedTitlesWithGroup["NoGroup"].push(titleId)
+        : (processedData.displayedTitlesWithGroup["NoGroup"] = [titleId]);
+    }
+    processedData.displayedTitlesWithGroup;
     titleId++;
   });
 
