@@ -1,10 +1,14 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Card from "@material-ui/core/Card";
+import { Card, Box, FormControlLabel, Switch } from "@material-ui/core";
 import TitleSection from "./TitleSection";
 import TabSection from "./TabSection";
 import RefreshIcon from "../images/Refresh";
-import { refreshTitles, setInputProps } from "../stores/UserActions.js";
+import {
+  refreshTitles,
+  setInputProps,
+  toggleGroup,
+} from "../stores/UserActions.js";
 import Tooltip from "@material-ui/core/Tooltip";
 
 import "./TabContent.css";
@@ -44,7 +48,25 @@ export const TabContent = (props) => {
 
   return (
     <div className="tab-content-container">
-      {refreshIcon}
+    <Box display="flex" flexDirection="row-reverse" p={0.5} m={0.5} bgcolor="background.paper">
+      <Box p={1} >
+      <FormControlLabel
+          control={
+            <Switch
+              checked={useSelector(state => state.showGroup)}
+              onChange={() => dispatch(toggleGroup())}
+              name="checkedGroup"
+              color="secondary"
+              disabled={useSelector(state => !state.hasGroup)}
+            />
+          }
+          label="Group"
+        />
+        </Box>
+        <Box p={1} m={0.5} >
+        {refreshIcon}
+        </Box>
+      </Box>
       <Card className="title-container">
         <TitleSection />
       </Card>

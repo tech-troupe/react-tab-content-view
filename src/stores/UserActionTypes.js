@@ -27,4 +27,6 @@ export const UserActionTypes = {
   CANCEL_LOADING: "CANCEL_LOADING",
   // Reset loading flag in state
   RESET_LOADING: "RESET_LOADING",
+  // Toggle group on/off display
+  TOGGLE_GROUP: "TOGGLE_GROUP",
 };

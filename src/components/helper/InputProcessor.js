@@ -15,6 +15,7 @@ export const processInput = (src, titleType, hasGroup) => {
   processedData.displayedTitlesWithGroup = {};
   processedData.closedTitle = null;
   processedData.hasGroup = hasGroup;
+  processedData.showGroup = hasGroup;
   processedData.data.map((obj, i) => {
     processedData.data[i] = { ...obj, titleId };
     processedData.allTitles.push(titleId);

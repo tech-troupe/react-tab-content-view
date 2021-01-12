@@ -25,6 +25,7 @@ const initialState = {
   defaultTitleId: 0,
   displayedTitlesWithGroup: 0,
   hasGroup: false,
+  showGroup: false,
 };
 
 const userActionReducer = (state = initialState, action) => {
@@ -239,6 +240,12 @@ const userActionReducer = (state = initialState, action) => {
       return {
         ...state,
         loadTimedout: true,
+      };
+    }
+    case UserActionTypes.TOGGLE_GROUP: {
+      return {
+        ...state,
+        showGroup: state.showGroup ? false : true,
       };
     }
     default:

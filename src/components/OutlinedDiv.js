@@ -2,19 +2,8 @@ import React from "react";
 
 import TextField from "@material-ui/core/TextField";
 
-// const useStyles = (theme) => ({
-//   root: {
-//     display: "flex",
-//     flexDirection: "row",
-//     justifyContent: "center",
-//     "& > *": {
-//       margin: theme.spacing(0.5),
-//     },
-//   },
-// });
-
 /* eslint-disable */
-const InputComponent = ({ inputRef, ...other }) => <div style = {{display: "flex",justifyContent: "center",padding:"5 5 5 5"}} {...other} />;
+const InputComponent = ({ inputRef, ...other }) => <div {...other} />;
 const OutlinedDiv = ({ children, label }) => {
   return (
     <TextField
