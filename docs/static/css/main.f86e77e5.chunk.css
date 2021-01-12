@@ -1,0 +1,28 @@
+.tab-content-container {
+    display:flex;
+    flex-direction: column;
+    background-color: rgb(19, 18, 18);
+    border: 1px solid grey;
+    border-radius: 5px;
+    padding:20px;
+    cursor: pointer;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+    transform: translateZ(0);
+    width: 90vw;
+    margin: 0 auto;
+    grid-gap: 20px;
+    gap: 20px;
+}
+
+.error-message {
+    text-align: center;
+}
+
+.refresh-icon {
+    width: 30px;
+    height: 30px;
+}
+
+/*# sourceMappingURL=main.f86e77e5.chunk.css.map*/
