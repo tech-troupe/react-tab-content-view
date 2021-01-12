@@ -4,7 +4,7 @@
     background-color: rgb(19, 18, 18);
     border: 1px solid grey;
     border-radius: 5px;
-    padding:25px;
+    padding:20px;
     cursor: pointer;
     -moz-osx-font-smoothing: grayscale;
     backface-visibility: hidden;
@@ -19,9 +19,6 @@
 }
 
 .refresh-icon {
-    position:absolute;
-    right:30px;
-    top:30px;
     width: 30px;
     height: 30px;
 }

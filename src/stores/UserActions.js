@@ -99,3 +99,9 @@ export const resetLoading = () => {
     type: UserActionTypes.RESET_LOADING,
   };
 };
+
+export const toggleGroup = () => {
+  return {
+    type: UserActionTypes.TOGGLE_GROUP,
+  };
+};

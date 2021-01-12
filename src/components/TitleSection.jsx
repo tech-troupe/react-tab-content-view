@@ -29,6 +29,7 @@ const useStyles = (theme) => ({
     justifyContent: "center",
   },
   content: {
+    display: "grid",
     flex: "1 0 auto",
     "& > *": {
       margin: theme.spacing(1),
@@ -47,6 +48,8 @@ const useStyles = (theme) => ({
   chips: {
     display: "flex",
     flexDirection: "row",
+    flexShrink: 1,
+    flexWrap: "wrap",
     justifyContent: "center",
     "& > *": {
       margin: theme.spacing(0.5),
@@ -103,7 +106,7 @@ class TitleSection extends React.Component {
     );
 
     let chipsList = [];
-    if (grpName !== "NoGroup") {
+    if (this.props.showGroup && grpName !== "NoGroup") {
       chipsList = filteredTitles.map((titleId) => {
         let obj = this.findObject(titleId);
         let variantValue =
@@ -182,18 +185,26 @@ class TitleSection extends React.Component {
   render() {
     const { classes } = this.props;
     let objectWithGroup = [];
-    this.props.displayedTitlesWithGroup &&
+    if (this.props.showGroup && this.props.displayedTitlesWithGroup) {
       Object.entries(this.props.displayedTitlesWithGroup).forEach(
         ([key, value]) => {
           objectWithGroup.push(this.createDisplayObjectGroup(key, value));
         }
       );
+    } else {
+      const arr = Object.keys(this.props.displayedTitlesWithGroup).reduce(
+        (resp, value) =>
+          resp.concat(this.props.displayedTitlesWithGroup[value]),
+        []
+      );
+      objectWithGroup.push(this.createDisplayObjectGroup("NoGroup", arr));
+    }
 
     return (
       <div className={classes.root} key="1">
         <Card className={classes.details} key="1">
           <CardContent className={classes.content} key="1">
-            <Grid container spacing={2}>
+            <Grid container xs={12} spacing={2}>
               {objectWithGroup && objectWithGroup.map((elem) => elem)}
             </Grid>
           </CardContent>
@@ -216,6 +227,7 @@ const mapStateToProps = (state) => {
     callbackFn: state.contentCallback,
     contentLoading: state.contentLoading,
     allTabs: state.allTabs,
+    showGroup: state.showGroup,
   };
 };
 
