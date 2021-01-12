@@ -139,8 +139,15 @@ class TitleSection extends React.Component {
 
   onBadgeEnable = (obj, variantValue) => {
     let chipAndBadge;
-    if (this.props.searchResult === null) {
-      chipAndBadge = (
+    chipAndBadge = (
+      <Badge
+        badgeContent={
+          this.props.searchResult[obj.title]
+            ? this.props.searchResult[obj.title]
+            : 0
+        }
+        color="secondary"
+      >
         <Chip
           variant={variantValue}
           size="small"
@@ -148,37 +155,13 @@ class TitleSection extends React.Component {
           label={obj.title}
           onClick={() => this.handleClick(obj.titleId)}
           onDelete={
-            this.props.titleDelete
+            this.props.titleDelete && obj.title !== this.props.titleLoading
               ? (e) => this.handleDelete(obj.titleId, e)
               : undefined
           }
         />
-      );
-    } else {
-      chipAndBadge = (
-        <Badge
-          badgeContent={
-            this.props.searchResult[obj.title]
-              ? this.props.searchResult[obj.title]
-              : 0
-          }
-          color="secondary"
-        >
-          <Chip
-            variant={variantValue}
-            size="small"
-            color="primary"
-            label={obj.title}
-            onClick={() => this.handleClick(obj.titleId)}
-            onDelete={
-              this.props.titleDelete
-                ? (e) => this.handleDelete(obj.titleId, e)
-                : undefined
-            }
-          />
-        </Badge>
-      );
-    }
+      </Badge>
+    );
     return chipAndBadge;
   };
 
@@ -228,6 +211,7 @@ const mapStateToProps = (state) => {
     contentLoading: state.contentLoading,
     allTabs: state.allTabs,
     showGroup: state.showGroup,
+    titleLoading: state.titleLoading,
   };
 };
 

@@ -48,23 +48,29 @@ export const TabContent = (props) => {
 
   return (
     <div className="tab-content-container">
-    <Box display="flex" flexDirection="row-reverse" p={0.5} m={0.5} bgcolor="background.paper">
-      <Box p={1} >
-      <FormControlLabel
-          control={
-            <Switch
-              checked={useSelector(state => state.showGroup)}
-              onChange={() => dispatch(toggleGroup())}
-              name="checkedGroup"
-              color="secondary"
-              disabled={useSelector(state => !state.hasGroup)}
-            />
-          }
-          label="Group"
-        />
+      <Box
+        display="flex"
+        flexDirection="row-reverse"
+        p={0.5}
+        m={0.5}
+        bgcolor="background.paper"
+      >
+        <Box p={1}>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={useSelector((state) => state.showGroup)}
+                onChange={() => dispatch(toggleGroup())}
+                name="checkedGroup"
+                color="secondary"
+                disabled={useSelector((state) => !state.hasGroup)}
+              />
+            }
+            label="Group"
+          />
         </Box>
-        <Box p={1} m={0.5} >
-        {refreshIcon}
+        <Box p={1} m={0.5}>
+          {refreshIcon}
         </Box>
       </Box>
       <Card className="title-container">

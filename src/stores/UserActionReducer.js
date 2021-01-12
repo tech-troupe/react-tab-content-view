@@ -15,7 +15,7 @@ const initialState = {
   closedTitle: null,
   currentSubTabValue: "0",
   mode: "search",
-  searchResult: null,
+  searchResult: [],
   advancedMode: false,
   contentCallback: {},
   contentDisplayComponent: null,
